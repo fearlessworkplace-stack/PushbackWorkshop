@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pushing Back Professionally — Interactive Workshop</title>
+<style>
+:root{
+  --bg:#F5F2EC; --navy:#2C3552; --navy2:#3D4768; --teal:#2F6E83;
+  --azure:#3987A0; --azure2:#6FB0C2; --burg:#8B2635; --white:#fff;
+  --muted:#817D77; --border:#D4CFC7; --card:#FAF8F4; --ink:#20253A;
+  --shadow:0 18px 50px rgba(44,53,82,.16);
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+#app{position:relative;width:100%;height:100%;overflow:hidden;background:
+  radial-gradient(circle at 18% 12%,rgba(57,135,160,.08),transparent 28%),
+  radial-gradient(circle at 82% 78%,rgba(139,38,53,.06),transparent 24%),var(--bg)}
+
+/* top bar */
+.topbar{position:fixed;left:0;right:0;top:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(44,53,82,.97);color:white;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.brand{display:flex;align-items:center;gap:12px}.brandMark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--azure));display:grid;place-items:center;font-weight:900}.brandText strong{display:block;font-size:15px}.brandText span{display:block;font-size:11px;color:#C8CBD7;letter-spacing:.08em;text-transform:uppercase;margin-top:1px}
+.toolbar{display:flex;align-items:center;gap:8px}.toolbtn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:8px 11px;font-size:12px;font-weight:700}.toolbtn:hover{background:rgba(255,255,255,.15)}.toolbtn.primary{background:linear-gradient(135deg,var(--teal),var(--azure));border:none}
+
+/* world */
+.viewport{position:absolute;inset:62px 0 0 0;overflow:hidden}
+.world{position:absolute;left:0;top:0;width:5000px;height:3200px;transform-origin:0 0;transition:transform .8s cubic-bezier(.2,.72,.2,1);will-change:transform}
+.world::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(44,53,82,.10) 1.2px,transparent 1.3px);background-size:42px 42px;opacity:.35}
+
+.scene{position:absolute;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:26px;box-shadow:var(--shadow);padding:34px;overflow:hidden;transform:translateZ(0)}
+.scene::after{content:"";position:absolute;right:-70px;bottom:-70px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(57,135,160,.08),transparent 70%);pointer-events:none}
+.scene.dark{background:var(--navy);color:white;border-color:var(--navy)}
+.scene.accent-burg::before,.scene.accent-teal::before,.scene.accent-azure::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px}
+.scene.accent-burg::before{background:var(--burg)}.scene.accent-teal::before{background:var(--teal)}.scene.accent-azure::before{background:var(--azure)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--muted);margin-bottom:10px}.dark .eyebrow{color:#AEB3C8}.scene h1,.scene h2,.scene h3{margin:0;color:var(--navy);line-height:1.05}.dark h1,.dark h2,.dark h3{color:white}
+.scene h1{font-size:52px;letter-spacing:-.04em}.scene h2{font-size:38px;letter-spacing:-.03em}.scene h3{font-size:28px}.scene p{font-size:20px;line-height:1.55;margin:14px 0;color:#4A4B57}.dark p{color:#E7E8EE}.bigline{font-size:30px!important;line-height:1.25!important;font-weight:800!important;color:var(--navy)!important}.dark .bigline{color:white!important}
+.accentText{color:var(--teal)}.burgText{color:var(--burg)}.azureText{color:var(--azure)}
+.quote{margin-top:18px;padding:18px 20px;border-left:5px solid var(--teal);background:#F2F7F8;border-radius:0 14px 14px 0;font-size:21px;font-weight:700;line-height:1.45;color:var(--navy)}
+.dark .quote{background:rgba(255,255,255,.08);color:white;border-left-color:var(--azure2)}
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.chip{padding:8px 11px;border-radius:999px;background:#EEF3F5;border:1px solid #D6E1E5;color:var(--teal);font-size:12px;font-weight:800}.dark .chip{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#DDE9ED}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.mini{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px}.mini strong{display:block;color:var(--navy);font-size:16px;margin-bottom:5px}.mini span,.mini p{font-size:14px;line-height:1.45;color:#5C5D68;margin:0}.dark .mini{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.13)}.dark .mini strong{color:white}.dark .mini span,.dark .mini p{color:#D6D8E2}
+
+/* spectrum */
+.spectrumWrap{margin-top:22px;padding:22px;background:#F8F6F2;border:1px solid var(--border);border-radius:18px}
+.spectrum{display:grid;grid-template-columns:repeat(8,1fr);position:relative;gap:8px;padding-top:18px}.spectrum::before{content:"";position:absolute;left:5%;right:5%;top:42px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--azure),var(--teal),var(--azure),var(--teal),var(--azure),var(--teal),var(--burg));opacity:.9}.stageDot{position:relative;text-align:center;z-index:2}.dot{width:30px;height:30px;border-radius:50%;margin:9px auto 8px;background:var(--teal);border:5px solid #F8F6F2;box-shadow:0 0 0 2px var(--teal)}.stageDot:nth-child(even) .dot{background:var(--azure);box-shadow:0 0 0 2px var(--azure)}.stageDot:last-child .dot{background:var(--burg);box-shadow:0 0 0 2px var(--burg)}.stageDot b{display:block;font-size:12px;color:var(--navy);line-height:1.2}.stageDot small{display:block;font-size:9px;color:var(--muted);margin-top:3px}
+.clusterLabels{display:grid;grid-template-columns:3fr 2fr 3fr;gap:10px;margin-top:20px}.cluster{border-radius:12px;padding:10px 12px;text-align:center;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.cluster.info{background:#E7F1F2;color:var(--teal)}.cluster.bounds{background:#E9F3F6;color:var(--azure)}.cluster.confront{background:#F4E9EC;color:var(--burg)}
+
+/* stage cards */
+.stageHeader{display:flex;gap:16px;align-items:center}.numBadge{width:58px;height:58px;border-radius:16px;background:var(--teal);color:white;display:grid;place-items:center;font-weight:900;font-size:19px}.numBadge.azure{background:var(--azure)}.numBadge.burg{background:var(--burg)}
+.stageMeta{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px}.value{font-size:16px;line-height:1.45;color:var(--navy);font-weight:650}
+.scriptLine{margin-top:14px;background:#F7F5F0;border:1px solid var(--border);border-radius:13px;padding:14px 16px;color:var(--navy);font-size:16px;line-height:1.45;font-style:italic}.stageFooter{margin-top:16px;padding-top:14px;border-top:1px dashed var(--border);font-size:14px;line-height:1.45;color:#62636C}
+
+/* nav path */
+.pathline{position:absolute;border:3px dashed rgba(57,135,160,.25);border-radius:999px;transform-origin:left center;pointer-events:none}
+
+/* scene links */
+.jump{margin-top:18px;border:none;background:var(--navy);color:white;padding:11px 15px;border-radius:10px;font-weight:800;font-size:13px}.jump.teal{background:var(--teal)}.jump.azure{background:var(--azure)}.jump.burg{background:var(--burg)}
+
+/* bottom nav */
+.navbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:1200;background:rgba(44,53,82,.96);color:white;border-radius:16px;padding:9px;display:flex;gap:7px;box-shadow:0 12px 34px rgba(0,0,0,.24);align-items:center}.navbtn{border:none;border-radius:10px;background:rgba(255,255,255,.09);color:white;padding:10px 13px;font-weight:800;font-size:12px}.navbtn:hover{background:rgba(255,255,255,.16)}.navbtn:disabled{opacity:.3;cursor:default}.counter{font-size:11px;color:#C5C9D8;padding:0 8px;min-width:80px;text-align:center}
+
+/* notes */
+.notesPanel{position:fixed;top:74px;right:14px;bottom:74px;width:min(420px,42vw);z-index:1400;background:rgba(255,255,255,.985);border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 60px rgba(44,53,82,.28);padding:22px;transform:translateX(calc(100% + 30px));transition:transform .35s ease;overflow:auto}.notesPanel.open{transform:translateX(0)}.notesPanel h3{margin:0 0 6px;color:var(--navy);font-size:22px}.notesPanel .noteEyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);font-weight:900;margin-bottom:12px}.notesPanel p{font-size:15px;line-height:1.6;color:#4A4B57;white-space:pre-line}.notesHint{position:fixed;right:14px;bottom:18px;z-index:1210;color:var(--muted);font-size:11px;background:rgba(245,242,236,.88);padding:7px 9px;border-radius:8px}
+
+/* map */
+.mapOverlay{position:fixed;inset:62px 0 0 0;z-index:1300;background:rgba(245,242,236,.96);display:none;align-items:center;justify-content:center;padding:30px}.mapOverlay.open{display:flex}.mapCard{width:min(1000px,94vw);height:min(650px,84vh);background:white;border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:28px;position:relative}.mapCard h2{margin:0;color:var(--navy);font-size:28px}.mapGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;max-height:500px;overflow:auto}.mapItem{border:1px solid var(--border);background:var(--card);border-radius:14px;padding:14px;text-align:left}.mapItem:hover{border-color:var(--azure);transform:translateY(-1px)}.mapItem b{display:block;color:var(--navy);font-size:14px}.mapItem span{font-size:11px;color:var(--muted)}.closeMap{position:absolute;top:18px;right:18px;border:none;background:#EEF0F4;color:var(--navy);border-radius:50%;width:34px;height:34px;font-size:20px}
+
+/* workshop plan fields */
+.planGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.field{background:#F8F6F2;border:1px solid var(--border);border-radius:14px;padding:13px}.field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px}.field input,.field textarea,.field select{width:100%;border:1px solid #CFCBC3;background:white;border-radius:9px;padding:10px;color:var(--navy);outline:none}.field textarea{min-height:70px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--azure);box-shadow:0 0 0 3px rgba(57,135,160,.12)}
+
+@media(max-width:900px){.scene h1{font-size:42px}.scene h2{font-size:32px}.scene p{font-size:17px}.grid3{grid-template-columns:1fr}.grid2,.stageMeta,.planGrid{grid-template-columns:1fr}.notesPanel{width:min(92vw,420px)}.mapGrid{grid-template-columns:1fr 1fr}.toolbar .hideSmall{display:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="brand"><div class="brandMark">FW</div><div class="brandText"><strong>Pushing Back Professionally</strong><span>Interactive workshop</span></div></div>
+    <div class="toolbar">
+      <button class="toolbtn" id="mapBtn">Map</button>
+      <button class="toolbtn hideSmall" id="notesBtn">Presenter Script</button>
+      <button class="toolbtn primary" id="fullscreenBtn">Full Screen</button>
+    </div>
+  </div>
+  <div class="viewport"><div class="world" id="world"></div></div>
+
+  <div class="navbar">
+    <button class="navbtn" id="prevBtn">← Previous</button>
+    <div class="counter" id="counter">1 / 20</div>
+    <button class="navbtn" id="nextBtn">Next →</button>
+  </div>
+  <div class="notesHint">← → navigate · S script · M map</div>
+
+  <aside class="notesPanel" id="notesPanel">
+    <div class="noteEyebrow">Presenter script</div>
+    <h3 id="notesTitle">Workshop</h3>
+    <p id="notesText"></p>
+  </aside>
+
+  <div class="mapOverlay" id="mapOverlay"><div class="mapCard"><button class="closeMap" id="closeMap">×</button><h2>Workshop Map</h2><div class="mapGrid" id="mapGrid"></div></div></div>
+</div>
+
+<script>
+const STAGES = [
+ {n:'01',name:'Inquiry',headline:'Start with curiosity',def:'“Tell me more.”',use:'You need information before taking a position.',protect:'Accuracy and understanding.',boss:'“Can you help me understand which deadlines you’re referring to?”',peer:'“Can you walk me through what happened on your end with the handoff?”',watch:'If the answer stays vague, move toward Clarification.',take:'Asking a real question is already a quiet form of pushback.',c:'teal'},
+ {n:'02',name:'Clarification',headline:'Get precise',def:'“Let’s get specific.”',use:'The claim is too broad to address fairly.',protect:'Precision and a usable record.',boss:'“Are you referring to the March 12 deliverable, the April 3 deliverable, or something else?”',peer:'“When you say I didn’t finish my part, are you talking about the client deck or the data pull?”',watch:'Specific claims can now be tested against facts.',take:'A vague claim loses power when you force specificity.',c:'azure'},
+ {n:'03',name:'Correction',headline:'Fix the record',def:'“That record is inaccurate or incomplete.”',use:'You know the specific claim and the facts do not support it.',protect:'Record, reputation, ownership, performance history.',boss:'“The March 12 deliverable was submitted on March 11. The April 3 deadline changed after I was reassigned to X.”',peer:'“I sent the data pull Tuesday, ahead of the deadline. Here’s the thread.”',watch:'If the false claim continues after correction, that is new information.',take:'State the fact. Bring the receipt. Let the correction do the work.',c:'teal'},
+ {n:'04',name:'Indirect Boundary',headline:'Set a process limit',def:'A boundary framed as a process question.',use:'You need structure or scope without making the interaction more adversarial than necessary.',protect:'Time, workload, ownership, communication boundaries.',boss:'“If you’d like me to copy you on emails, can we define which projects and for how long?”',peer:'“Can we confirm ownership in writing before each phase going forward?”',watch:'If the structure is ignored or rejected, the limit may need to become explicit.',take:'Process can be a boundary.',c:'azure'},
+ {n:'05',name:'Explicit Boundary',headline:'State the condition directly',def:'“Here is the limit.”',use:'The boundary needs to be unmistakable.',protect:'Your conditions for participation, workload, treatment, or process.',boss:'“I’m willing to follow a new communication process, but I need expectations and performance concerns to be stated specifically and accurately.”',peer:'“I need us to check with each other before either of us tells the team something inaccurate about who did what.”',watch:'If the person tests the limit, your job is to hold it rather than invent a new boundary.',take:'A boundary only works if the other person can tell where it is.',c:'teal'},
+ {n:'06',name:'Direct Conversation',headline:'Name what is happening',def:'“We need to address this directly.”',use:'There is a pattern, relationship problem, or repeated issue that needs a real conversation.',protect:'Working relationship, role clarity, reputation, continued functioning.',boss:'“I’m concerned there’s a growing narrative about missed deadlines that doesn’t match the record, and I want to understand what’s driving that.”',peer:'“I want to talk about that email because it framed things in a way that wasn’t accurate, and I want to understand why.”',watch:'Their response tells you whether this can be resolved directly or requires a challenge.',take:'Naming the pattern changes the conversation.',c:'azure'},
+ {n:'07',name:'Direct Challenge',headline:'Contest the position',def:'“I disagree.”',use:'The position itself now needs to be explicitly contested.',protect:'Record, authority, reputation, formal standing.',boss:'“I disagree with the characterization that I have a pattern of missing deadlines. The documentation does not support that.”',peer:'“I don’t agree that I dropped the ball here. The record shows otherwise, and I’d like that corrected with the team.”',watch:'A direct challenge should be supported by the record you have built.',take:'Flat and factual usually lands harder than loud.',c:'teal'},
+ {n:'08',name:'Escalation',headline:'Involve greater authority',def:'Bring the issue into a higher-authority or formal process.',use:'The stakes, pattern, failure of direct resolution, or seriousness of the issue justify organizational authority.',protect:'Your position when direct resolution is no longer adequate.',boss:'Skip-level manager, HR, formal process, or another appropriate authority.',peer:'Shared manager or project authority once the pattern and impact justify it.',watch:'Escalation is strongest when it arrives with a clear record of what happened and what you already tried.',take:'Escalation is a strategic move, not a substitute for diagnosis.',c:'burg'}
+];
+
+const scenes = [
+ {id:'title',x:2100,y:1320,w:820,h:500,title:'Pushing Back Professionally',k:'Opening',html:()=>`
+  <div class="eyebrow">Fearless Workplace · Live Workshop</div><h1>Pushing Back <span class="accentText">Professionally</span></h1>
+  <p class="bigline">You do not need one perfect response. You need more options.</p>
+  <p>Learn how to choose the lowest level of pushback that still protects you.</p>
+  <div class="chips"><span class="chip">60-minute workshop</span><span class="chip">8-stage spectrum</span><span class="chip">decision practice</span></div>`,
+  notes:`Open quickly. Do not spend several minutes on biography.\n\nSay: “When most people hear pushback, they picture confrontation. That is the first problem we are going to fix.”\n\nMove directly into the scenario.`},
+ {id:'scenario',x:600,y:760,w:860,h:560,title:'What would you do?',k:'The problem',html:()=>`
+  <div class="eyebrow">Start with the problem</div><h2>What would <span class="burgText">you</span> do?</h2>
+  <div class="quote">Your boss emails you, copies their manager, and says that because of your “pattern of missing deadlines,” they now need to be copied on all your work communication.</div>
+  <p>You know the claim is inaccurate.</p><p class="bigline">What is your move?</p>`,
+  notes:`Ask the room before teaching anything. Let people answer.\n\nYou may hear: ignore it, explain, reply-all, correct the record, ask for a meeting, go to HR.\n\nThen say: “Everything you just named can be a form of pushback. But those moves are not equivalent.”`},
+ {id:'collapse',x:700,y:1500,w:760,h:430,title:'The false binary',k:'The problem',html:()=>`
+  <div class="eyebrow">The false binary</div><h2>People collapse pushback into one thing:</h2><p class="bigline burgText">CONFRONTATION</p>
+  <p>So they either stay quiet because confrontation feels too risky, or they wait until the situation is so bad that confrontation is the only move they can see.</p>`,
+  notes:`This is the tension. Most people think they have two choices: tolerate it or confront it.\n\nPromise: “There are several places to respond before you ever get to confrontation.”`},
+ {id:'rule',x:1450,y:300,w:820,h:470,title:'The decision rule',k:'Decision rule',html:()=>`
+  <div class="eyebrow">The rule that governs the framework</div><h2>Use the <span class="accentText">lowest level</span> of pushback that adequately protects you.</h2>
+  <div class="grid3"><div class="mini"><strong>Not the softest</strong><span>Too little can leave you exposed.</span></div><div class="mini"><strong>Not the hardest</strong><span>More force can create unnecessary risk.</span></div><div class="mini"><strong>The lowest effective</strong><span>Enough to protect what needs protecting.</span></div></div>`,
+  notes:`This is the central rule.\n\nSay: “The goal is not to prove how assertive you can be. The goal is to protect the thing that needs protecting with the least unnecessary exposure.”\n\nAlso clarify: the spectrum is not a ladder everyone must climb from 1 to 8.`},
+ {id:'threeq',x:2280,y:220,w:830,h:500,title:'Three questions',k:'Decision rule',html:()=>`
+  <div class="eyebrow">Before you choose a level</div><h2>Ask <span class="azureText">three questions.</span></h2>
+  <div class="grid3"><div class="mini"><strong>1. What needs protecting?</strong><span>Record, workload, reputation, authority, time, boundary, ownership.</span></div><div class="mini"><strong>2. What happens if I do nothing?</strong><span>Does this disappear, or become the accepted version?</span></div><div class="mini"><strong>3. What is the risk of responding?</strong><span>Power, culture, pattern, retaliation risk, political capital.</span></div></div>`,
+  notes:`The diagnosis comes before the sentence.\n\nPush participants to distinguish annoyance from consequence. A rude comment may not need the same response as a false performance claim copied upward.`},
+ {id:'pause',x:3150,y:300,w:700,h:420,title:'Regulate before deciding',k:'Decision rule',html:()=>`
+  <div class="eyebrow">A 90-second skill, not an 8-minute lecture</div><h2>Regulate before you <span class="accentText">decide.</span></h2>
+  <p class="bigline">Pause → Gather information → Choose deliberately</p>
+  <div class="quote">“I want to make sure I understand this before I respond.”</div>`,
+  notes:`Keep this short. A challenge to your work can trigger fight, flight, freeze, or fawn. Your goal is simply to get your brain back online enough to make the decision.\n\nYou do not need the perfect response in real time. Buying time can be strategic.`},
+ {id:'spectrum',x:2000,y:900,w:1150,h:660,title:'The Pushback Spectrum',k:'Master map',html:()=>spectrumHtml(),
+  notes:`This is the signature visual.\n\nTeach the clusters first, not eight definitions.\n\nStages 1–3: information or record correction.\nStages 4–5: limits.\nStages 6–8: direct challenge or greater authority.\n\nSay: “The job of the response changes as you move across the spectrum.”`},
+ {id:'infoGroup',x:3280,y:650,w:980,h:610,title:'Information',k:'Stages 1–3',html:()=>groupHtml('INFORMATION','You are gathering, narrowing, or correcting.',STAGES.slice(0,3),'teal'),notes:`Walk the boss scenario through Inquiry → Clarification → Correction.\n\nImportant aha: no confrontation, no accusation, no escalation — and you have already pushed back three different ways.`},
+ ...STAGES.slice(0,3).map((s,i)=>stageScene(s, 3560+i*35, 80+i*650, i)),
+ {id:'already',x:4300,y:830,w:620,h:430,title:'Already pushed back',k:'Stages 1–3',html:()=>`
+  <div class="eyebrow">Pause here</div><h2>You have already pushed back <span class="accentText">three times.</span></h2>
+  <p class="bigline">Asked → Narrowed → Corrected</p><div class="chips"><span class="chip">No accusation</span><span class="chip">No confrontation</span><span class="chip">No escalation</span></div>`,
+  notes:`This is the psychological relief point. People often stay silent because they think responding means starting a fight. The first three stages show otherwise.`},
+ {id:'boundaryGroup',x:3650,y:1420,w:1040,h:580,title:'Boundaries',k:'Stages 4–5',html:()=>groupHtml('BOUNDARIES','You know enough. Now you are setting a limit.',STAGES.slice(3,5),'azure'),notes:`Teach the difference between a process boundary and an explicit boundary. Ask: “Does the indirect version adequately protect you?” If yes, stop there.`},
+ ...STAGES.slice(3,5).map((s,i)=>stageScene(s, 4030+i*90, 1420+i*640, i+3)),
+ {id:'confrontGroup',x:3200,y:2300,w:1100,h:610,title:'Confrontation + Escalation',k:'Stages 6–8',html:()=>groupHtml('CONFRONTATION + ESCALATION','The pattern, stakes, or consequences now require a stronger move.',STAGES.slice(5,8),'burg'),notes:`These are the moves people usually picture when they hear “pushback.” Stress that a Direct Conversation and Direct Challenge can happen in the same sitting.`},
+ ...STAGES.slice(5,8).map((s,i)=>stageScene(s, 3720-i*130, 2450+i*130, i+5)),
+ {id:'calibration',x:2050,y:2400,w:1040,h:620,title:'What changes the calculation',k:'Calibration',html:()=>`
+  <div class="eyebrow">Same behavior · different context · different move</div><h2>The behavior alone does <span class="burgText">not</span> determine the response.</h2>
+  <div class="grid3"><div class="mini"><strong>Power</strong><span>Peer, manager, senior leader, client.</span></div><div class="mini"><strong>Pattern</strong><span>One incident or repeated behavior?</span></div><div class="mini"><strong>Stakes</strong><span>Annoyance or formal record?</span></div><div class="mini"><strong>Audience</strong><span>Private, team-wide, sent upward?</span></div><div class="mini"><strong>Channel</strong><span>Spoken, email, Slack, review?</span></div><div class="mini"><strong>Risk</strong><span>Backlash, retaliation, political capital.</span></div></div>`,
+  notes:`This is the missing decision layer.\n\nUse the example: a peer makes one inaccurate statement privately versus a manager repeatedly putting inaccurate performance claims in writing and copying leadership. Same broad behavior. Different consequence and power.`},
+ {id:'risk',x:1400,y:2450,w:600,h:480,title:'Risk is uneven',k:'Calibration',html:()=>`
+  <div class="eyebrow">Calibration</div><h2>Risk is not distributed <span class="burgText">evenly.</span></h2><p>The same pushback can carry different costs depending on power, identity, culture, and context.</p><p class="bigline">The lesson is not “be less assertive.” It is: calibrate the move.</p>`,
+  notes:`Keep this to 1–2 minutes. Mention backlash research as evidence for the larger principle, not as a separate gender lecture. Lower-power people may choose different framing, stronger documentation, or a different channel.`},
+ {id:'lab',x:750,y:2300,w:900,h:680,title:'Pushback Lab',k:'Practice',html:()=>`
+  <div class="eyebrow">Practice the diagnosis</div><h2>Choose the move <span class="azureText">before</span> you write the sentence.</h2>
+  <div class="grid2"><div class="mini"><strong>1</strong><span>What needs protecting?</span></div><div class="mini"><strong>2</strong><span>What happens if you do nothing?</span></div><div class="mini"><strong>3</strong><span>What risk factors matter?</span></div><div class="mini"><strong>4</strong><span>Which stage fits right now?</span></div><div class="mini"><strong>5</strong><span>Why not one stage lower?</span></div><div class="mini"><strong>6</strong><span>Why not one stage higher?</span></div></div>
+  <div class="quote">Then write one line of pushback.</div>`,
+  notes:`Give pairs or groups about 10 minutes. The skill is defending the choice of stage, not producing a clever sentence.\n\nChallenge them: “What makes that Stage 5 instead of Stage 3?” “What fact would move your answer up or down?”`},
+ {id:'debrief',x:500,y:1650,w:710,h:520,title:'Debrief',k:'Practice',html:()=>`
+  <div class="eyebrow">Debrief</div><h2>What would change <span class="accentText">your answer?</span></h2><p class="bigline">There may not be one universally correct stage.</p><p>Ask what new fact would move the response up or down the spectrum.</p>`,
+  notes:`Invite 2–3 examples. For each: ask the stage, ask why, then ask what new information would change the answer. This teaches that the framework is a decision tool rather than eight canned scripts.`},
+ {id:'response',x:400,y:1050,w:720,h:560,title:'When it doesn’t work',k:'Dynamic spectrum',html:()=>`
+  <div class="eyebrow">The first move is not always the last move</div><h2>Their response to your pushback is <span class="burgText">new information.</span></h2>
+  <div class="grid2"><div class="mini"><strong>Ask → they evade</strong><span>Move toward precision.</span></div><div class="mini"><strong>Correct → they repeat it</strong><span>The problem is becoming a pattern.</span></div><div class="mini"><strong>Boundary → they test it</strong><span>Hold it or strengthen it.</span></div><div class="mini"><strong>Pattern → it continues</strong><span>Challenge or escalation may now fit.</span></div></div>`,
+  notes:`This is critical. The spectrum is dynamic. Do not keep repeating the same move forever just because it was appropriate the first time. Re-run the decision filter.`},
+ {id:'plan',x:1220,y:1120,w:800,h:620,title:'Build your Pushback Plan',k:'Personal plan',html:()=>planHtml(),notes:`Give 2–3 quiet minutes. The most important field is “If that does not work, what is my next move?” People prepare for one conversation and then get caught off guard by resistance.`},
+ {id:'close',x:2100,y:1650,w:860,h:520,title:'Close',k:'Close',html:()=>`
+  <div class="eyebrow">Bring it back to the center</div><h2>You do not need to become more confrontational.</h2><p class="bigline">You need more <span class="accentText">options.</span></p><p>Recognize what the situation requires. Choose the lowest level of pushback that still protects you.</p>
+  <div class="quote">Pushback gets easier when you stop treating it as one giant confrontation and start treating it as a strategic choice.</div>`,
+  notes:`Close the loop from the opening scenario.\n\nSay: “More options reduce the chance that you stay silent too long, overreact too early, or escalate before you need to.”`}
+];
+
+function stageScene(s,x,y,idx){return {id:'stage'+s.n,x,y,w:720,h:610,title:s.n+' '+s.name,k:'Stage '+s.n,html:()=>stageHtml(s),notes:`Stage ${s.n}: ${s.name}.\n\n${s.use}\n\nWhat it protects: ${s.protect}\n\nBoss example: ${s.boss}\n\nWatch for: ${s.watch}\n\nTakeaway: ${s.take}`}}
+
+function spectrumHtml(){return `<div class="eyebrow">The master map</div><h2>Pushback is a <span class="accentText">spectrum.</span></h2><p>From a quiet question to formal escalation.</p><div class="spectrumWrap"><div class="spectrum">${STAGES.map(s=>`<div class="stageDot"><small>${s.n}</small><div class="dot"></div><b>${s.name}</b></div>`).join('')}</div><div class="clusterLabels"><div class="cluster info">Information</div><div class="cluster bounds">Boundaries</div><div class="cluster confront">Confrontation + Escalation</div></div></div><p class="bigline">The job of the response changes as you move across the spectrum.</p>`}
+function groupHtml(label,subtitle,arr,color){return `<div class="eyebrow">${label}</div><h2>${subtitle}</h2><div class="grid3">${arr.map(s=>`<div class="mini"><strong>${s.n} · ${s.name}</strong><span>${s.def}</span></div>`).join('')}</div>`}
+function stageHtml(s){const cls=s.c==='burg'?'burg':s.c==='azure'?'azure':'';return `<div class="stageHeader"><div class="numBadge ${cls}">${s.n}</div><div><div class="eyebrow">Stage ${s.n} of 08</div><h3>${s.headline}</h3></div></div><div class="quote">${s.def}</div><div class="stageMeta"><div><div class="label">Use this when</div><div class="value">${s.use}</div></div><div><div class="label">What you are protecting</div><div class="value">${s.protect}</div></div></div><div class="label" style="margin-top:16px">With a boss</div><div class="scriptLine">${s.boss}</div><div class="label" style="margin-top:12px">With a peer</div><div class="scriptLine">${s.peer}</div><div class="stageFooter"><b>Watch for:</b> ${s.watch}<br><b>Takeaway:</b> ${s.take}</div>`}
+function planHtml(){return `<div class="eyebrow">Build your plan</div><h2>Apply the framework to one <span class="accentText">real situation.</span></h2><div class="planGrid"><div class="field"><label>What happened?</label><textarea id="p1"></textarea></div><div class="field"><label>What needs protecting?</label><textarea id="p2"></textarea></div><div class="field"><label>My first move</label><select id="p3">${STAGES.map(s=>`<option>${s.n} · ${s.name}</option>`).join('')}</select></div><div class="field"><label>What I will say</label><textarea id="p4"></textarea></div><div class="field"><label>If that does not work, my next move is</label><select id="p5">${STAGES.map(s=>`<option>${s.n} · ${s.name}</option>`).join('')}</select></div><div class="field"><label>What do I need to document?</label><textarea id="p6"></textarea></div></div>`}
+
+const world=document.getElementById('world');
+scenes.forEach((s,i)=>{const el=document.createElement('section');el.className='scene '+(s.id==='title'?'dark':'')+(s.id==='risk'||s.id==='response'?' accent-burg':'')+(s.id==='rule'||s.id==='infoGroup'?' accent-teal':'')+(s.id==='lab'||s.id==='calibration'?' accent-azure':'');el.id=s.id;el.style.left=s.x+'px';el.style.top=s.y+'px';el.style.width=s.w+'px';el.style.minHeight=s.h+'px';el.innerHTML=s.html()+`<button class="jump ${i===scenes.length-1?'teal':''}" data-jump="${i<scenes.length-1?i+1:0}">${i<scenes.length-1?'Continue →':'Back to start'}</button>`;world.appendChild(el)});
+
+document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>goTo(+b.dataset.jump)));
+
+let current=0; let notesOpen=false;
+const viewport=document.querySelector('.viewport');
+function goTo(i){current=Math.max(0,Math.min(scenes.length-1,i));const s=scenes[current];const vw=viewport.clientWidth,vh=viewport.clientHeight;const pad=90;const scale=Math.min((vw-pad*2)/s.w,(vh-pad*2)/s.h,1.18);const tx=vw/2-(s.x+s.w/2)*scale;const ty=vh/2-(s.y+s.h/2)*scale;world.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`;document.getElementById('counter').textContent=`${current+1} / ${scenes.length}`;document.getElementById('prevBtn').disabled=current===0;document.getElementById('nextBtn').disabled=current===scenes.length-1;document.getElementById('notesTitle').textContent=s.title;document.getElementById('notesText').textContent=s.notes;}
+function showWholeMap(){const vw=viewport.clientWidth,vh=viewport.clientHeight;const scale=Math.min(vw/5000,vh/3200)*.92;world.style.transform=`translate(${(vw-5000*scale)/2}px,${(vh-3200*scale)/2}px) scale(${scale})`;}
+
+document.getElementById('prevBtn').onclick=()=>goTo(current-1);document.getElementById('nextBtn').onclick=()=>goTo(current+1);
+document.getElementById('notesBtn').onclick=()=>toggleNotes();
+function toggleNotes(){notesOpen=!notesOpen;document.getElementById('notesPanel').classList.toggle('open',notesOpen)}
+
+document.getElementById('mapBtn').onclick=()=>openMap();document.getElementById('closeMap').onclick=()=>document.getElementById('mapOverlay').classList.remove('open');
+function openMap(){const grid=document.getElementById('mapGrid');grid.innerHTML=scenes.map((s,i)=>`<button class="mapItem" data-map-jump="${i}"><span>${String(i+1).padStart(2,'0')} · ${s.k}</span><b>${s.title}</b></button>`).join('');grid.querySelectorAll('[data-map-jump]').forEach(b=>b.onclick=()=>{document.getElementById('mapOverlay').classList.remove('open');goTo(+b.dataset.mapJump)});document.getElementById('mapOverlay').classList.add('open')}
+
+document.getElementById('fullscreenBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}};
+window.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();goTo(current+1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goTo(current-1)}if(e.key.toLowerCase()==='s'){toggleNotes()}if(e.key.toLowerCase()==='m'){openMap()}if(e.key==='Escape'){document.getElementById('mapOverlay').classList.remove('open')}});
+window.addEventListener('resize',()=>goTo(current));
+
+// Persist worksheet locally in browser
+['p1','p2','p3','p4','p5','p6'].forEach(id=>{document.addEventListener('input',e=>{if(e.target.id===id)localStorage.setItem('fw-'+id,e.target.value)})});
+setTimeout(()=>{['p1','p2','p3','p4','p5','p6'].forEach(id=>{const el=document.getElementById(id);if(el&&localStorage.getItem('fw-'+id))el.value=localStorage.getItem('fw-'+id)})},500);
+
+goTo(0);
+</script>
+</body>
+</html>

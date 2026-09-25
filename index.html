@@ -2,217 +2,786 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pushing Back Professionally — Interactive Workshop</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pushing Back Professionally</title>
 <style>
 :root{
-  --bg:#F5F2EC; --navy:#2C3552; --navy2:#3D4768; --teal:#2F6E83;
-  --azure:#3987A0; --azure2:#6FB0C2; --burg:#8B2635; --white:#fff;
-  --muted:#817D77; --border:#D4CFC7; --card:#FAF8F4; --ink:#20253A;
-  --shadow:0 18px 50px rgba(44,53,82,.16);
+  --cream:#2F6E83; --paper:#FFFFFF; --navy:#0B4366; --teal:#2F6E83;
+  --azure:#3987A0; --burgundy:#9C2B3C; --ink:#102239; --muted:#657381;
+  --line:#D7E2E7; --shadow:0 16px 38px rgba(8,49,70,.18);
+  --teal-soft:#EAF4F7; --navy-soft:#EAF0F5; --burg-soft:#F8ECEF; --gold-soft:#F7F0E2;
 }
 *{box-sizing:border-box}
-html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-#app{position:relative;width:100%;height:100%;overflow:hidden;background:
-  radial-gradient(circle at 18% 12%,rgba(57,135,160,.08),transparent 28%),
-  radial-gradient(circle at 82% 78%,rgba(139,38,53,.06),transparent 24%),var(--bg)}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+linear-gradient(145deg,#2F6E83 0%,#3987A0 55%,#0B4366 100%);background-attachment:fixed;color:var(--ink)}
+button{font:inherit}
+.shell{max-width:1180px;margin:0 auto;padding:24px 26px 70px}
+.topbar{display:flex;justify-content:flex-end;align-items:center;gap:18px;padding:10px 0 16px}
+.brand{display:flex;align-items:center;justify-content:flex-end;flex:0 0 auto;margin:0}
+.brand img{height:56px;width:auto;display:block;max-width:180px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);color:white;padding:9px 13px;border-radius:999px;cursor:pointer;font-weight:800;font-size:13px;backdrop-filter:blur(8px)}
+.hero{background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.5);border-radius:28px;padding:42px;box-shadow:0 22px 55px rgba(4,37,55,.22);position:relative;overflow:hidden}
 
-/* top bar */
-.topbar{position:fixed;left:0;right:0;top:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(44,53,82,.97);color:white;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,.15)}
-.brand{display:flex;align-items:center;gap:12px}.brandMark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--azure));display:grid;place-items:center;font-weight:900}.brandText strong{display:block;font-size:15px}.brandText span{display:block;font-size:11px;color:#C8CBD7;letter-spacing:.08em;text-transform:uppercase;margin-top:1px}
-.toolbar{display:flex;align-items:center;gap:8px}.toolbtn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:8px 11px;font-size:12px;font-weight:700}.toolbtn:hover{background:rgba(255,255,255,.15)}.toolbtn.primary{background:linear-gradient(135deg,var(--teal),var(--azure));border:none}
 
-/* world */
-.viewport{position:absolute;inset:62px 0 0 0;overflow:hidden}
-.world{position:absolute;left:0;top:0;width:5000px;height:3200px;transform-origin:0 0;transition:transform .8s cubic-bezier(.2,.72,.2,1);will-change:transform}
-.world::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(44,53,82,.10) 1.2px,transparent 1.3px);background-size:42px 42px;opacity:.35}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--burgundy)}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(46px,7vw,76px);line-height:.96;margin:0 0 14px;letter-spacing:-.055em;font-weight:900;max-width:900px;position:relative;display:inline-block}
+h1:after{content:'';position:absolute;left:2px;right:16%;bottom:-8px;height:9px;border-radius:999px;background:linear-gradient(90deg,var(--burgundy),#C04D5F);transform:rotate(-1.2deg);opacity:.95}
+.sub{font-size:18px;line-height:1.55;color:#3B4452;max-width:860px}
+.rule{margin-top:16px;padding:18px 20px;border-left:6px solid var(--burgundy);background:linear-gradient(90deg,#EDF6F8,#F8FAFB);border-radius:14px;font-size:20px;font-weight:900;box-shadow:inset 0 0 0 1px #D8E8ED}
 
-.scene{position:absolute;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:26px;box-shadow:var(--shadow);padding:34px;overflow:hidden;transform:translateZ(0)}
-.scene::after{content:"";position:absolute;right:-70px;bottom:-70px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(57,135,160,.08),transparent 70%);pointer-events:none}
-.scene.dark{background:var(--navy);color:white;border-color:var(--navy)}
-.scene.accent-burg::before,.scene.accent-teal::before,.scene.accent-azure::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px}
-.scene.accent-burg::before{background:var(--burg)}.scene.accent-teal::before{background:var(--teal)}.scene.accent-azure::before{background:var(--azure)}
-.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--muted);margin-bottom:10px}.dark .eyebrow{color:#AEB3C8}.scene h1,.scene h2,.scene h3{margin:0;color:var(--navy);line-height:1.05}.dark h1,.dark h2,.dark h3{color:white}
-.scene h1{font-size:52px;letter-spacing:-.04em}.scene h2{font-size:38px;letter-spacing:-.03em}.scene h3{font-size:28px}.scene p{font-size:20px;line-height:1.55;margin:14px 0;color:#4A4B57}.dark p{color:#E7E8EE}.bigline{font-size:30px!important;line-height:1.25!important;font-weight:800!important;color:var(--navy)!important}.dark .bigline{color:white!important}
-.accentText{color:var(--teal)}.burgText{color:var(--burg)}.azureText{color:var(--azure)}
-.quote{margin-top:18px;padding:18px 20px;border-left:5px solid var(--teal);background:#F2F7F8;border-radius:0 14px 14px 0;font-size:21px;font-weight:700;line-height:1.45;color:var(--navy)}
-.dark .quote{background:rgba(255,255,255,.08);color:white;border-left-color:var(--azure2)}
-.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.chip{padding:8px 11px;border-radius:999px;background:#EEF3F5;border:1px solid #D6E1E5;color:var(--teal);font-size:12px;font-weight:800}.dark .chip{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#DDE9ED}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.mini{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px}.mini strong{display:block;color:var(--navy);font-size:16px;margin-bottom:5px}.mini span,.mini p{font-size:14px;line-height:1.45;color:#5C5D68;margin:0}.dark .mini{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.13)}.dark .mini strong{color:white}.dark .mini span,.dark .mini p{color:#D6D8E2}
 
-/* spectrum */
-.spectrumWrap{margin-top:22px;padding:22px;background:#F8F6F2;border:1px solid var(--border);border-radius:18px}
-.spectrum{display:grid;grid-template-columns:repeat(8,1fr);position:relative;gap:8px;padding-top:18px}.spectrum::before{content:"";position:absolute;left:5%;right:5%;top:42px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--azure),var(--teal),var(--azure),var(--teal),var(--azure),var(--teal),var(--burg));opacity:.9}.stageDot{position:relative;text-align:center;z-index:2}.dot{width:30px;height:30px;border-radius:50%;margin:9px auto 8px;background:var(--teal);border:5px solid #F8F6F2;box-shadow:0 0 0 2px var(--teal)}.stageDot:nth-child(even) .dot{background:var(--azure);box-shadow:0 0 0 2px var(--azure)}.stageDot:last-child .dot{background:var(--burg);box-shadow:0 0 0 2px var(--burg)}.stageDot b{display:block;font-size:12px;color:var(--navy);line-height:1.2}.stageDot small{display:block;font-size:9px;color:var(--muted);margin-top:3px}
-.clusterLabels{display:grid;grid-template-columns:3fr 2fr 3fr;gap:10px;margin-top:20px}.cluster{border-radius:12px;padding:10px 12px;text-align:center;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.cluster.info{background:#E7F1F2;color:var(--teal)}.cluster.bounds{background:#E9F3F6;color:var(--azure)}.cluster.confront{background:#F4E9EC;color:var(--burg)}
+.intro-card{
+  margin-top:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#FFFFFF,#F7FBFC);
+  overflow:hidden;box-shadow:0 7px 18px rgba(47,110,131,.08)
+}
+.intro-btn{
+  width:100%;border:none;background:transparent;padding:18px 20px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;text-align:left
+}
+.intro-badge{
+  width:46px;height:46px;border-radius:14px;background:var(--burg-soft);display:grid;place-items:center;
+  font-size:23px;flex:0 0 auto
+}
+.intro-text{flex:1}
+.intro-kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--burgundy);margin-bottom:4px}
+.intro-title{font-size:20px;font-weight:900;line-height:1.2}
+.intro-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.intro-plus{font-size:24px;font-weight:900;color:var(--burgundy);transition:transform .2s}
+.intro-card.open .intro-plus{transform:rotate(45deg)}
+.intro-panel{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .3s ease}
+.intro-card.open .intro-panel{max-height:2600px;opacity:1}
+.intro-inner{padding:0 22px 22px}
+.intro-copy{font-size:17px;line-height:1.72}
+.intro-copy p{margin:0 0 15px}
+.intro-callout{
+  margin:18px 0;padding:16px 18px;border-radius:14px;background:#EEF5F7;border-left:5px solid var(--teal);
+  font-size:19px;line-height:1.45;font-weight:900
+}
 
-/* stage cards */
-.stageHeader{display:flex;gap:16px;align-items:center}.numBadge{width:58px;height:58px;border-radius:16px;background:var(--teal);color:white;display:grid;place-items:center;font-weight:900;font-size:19px}.numBadge.azure{background:var(--azure)}.numBadge.burg{background:var(--burg)}
-.stageMeta{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px}.value{font-size:16px;line-height:1.45;color:var(--navy);font-weight:650}
-.scriptLine{margin-top:14px;background:#F7F5F0;border:1px solid var(--border);border-radius:13px;padding:14px 16px;color:var(--navy);font-size:16px;line-height:1.45;font-style:italic}.stageFooter{margin-top:16px;padding-top:14px;border-top:1px dashed var(--border);font-size:14px;line-height:1.45;color:#62636C}
+.decision{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.q{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#FFFFFF,#F7FBFC);padding:18px;min-height:132px;cursor:pointer;text-align:left;position:relative;transition:.15s;box-shadow:0 5px 14px rgba(47,110,131,.08)}
+.q:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(30,36,52,.10);border-color:#9AB9C4}
+.q.active{border-color:var(--teal);box-shadow:0 0 0 3px rgba(47,110,131,.12)}
+.qnum{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:white;font-weight:800;margin-bottom:10px}
+.q strong{display:block;font-size:15px;line-height:1.3}
+.q small{display:block;color:var(--muted);margin-top:5px;line-height:1.4;padding-right:24px}
+.plus{position:absolute;right:14px;bottom:11px;font-size:20px;font-weight:900;color:var(--teal);transition:transform .2s}
+.q.active .plus{transform:rotate(45deg)}
 
-/* nav path */
-.pathline{position:absolute;border:3px dashed rgba(57,135,160,.25);border-radius:999px;transform-origin:left center;pointer-events:none}
+.reveal{max-height:0;opacity:0;overflow:hidden;margin-top:0;transition:max-height .45s ease,opacity .3s ease,margin .35s ease}
+.reveal.open{max-height:5000px;opacity:1;margin-top:16px}
+.reveal-card{background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.reveal-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:18px 20px;background:var(--teal);color:white}
+.reveal-kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;opacity:.75;margin-bottom:4px}
+.reveal-title{font-size:28px;font-weight:900;line-height:1.12}
+.x{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.1);color:white;cursor:pointer;font-size:20px}
+.reveal-body{padding:24px}
+.question-intro,.question-outro{font-size:17px;line-height:1.72;max-width:980px}
+.question-intro p,.question-outro p{margin:0 0 15px}
+.callout{margin:18px 0;padding:15px 17px;border-radius:12px;background:#EEF5F7;border-left:5px solid var(--teal);font-size:19px;line-height:1.45;font-weight:800}
 
-/* scene links */
-.jump{margin-top:18px;border:none;background:var(--navy);color:white;padding:11px 15px;border-radius:10px;font-weight:800;font-size:13px}.jump.teal{background:var(--teal)}.jump.azure{background:var(--azure)}.jump.burg{background:var(--burg)}
+.accordion-list{display:flex;flex-direction:column;gap:12px;margin:18px 0}
+.acc-item{border:1px solid var(--line);border-radius:18px;background:var(--paper);overflow:hidden;transition:box-shadow .15s ease,border-color .15s ease}
+.acc-item.open{box-shadow:0 10px 24px rgba(30,36,52,.08)}
+.acc-item.teal{background:linear-gradient(180deg,#ffffff 0%, #f8fbfc 100%)}
+.acc-item.navy{background:linear-gradient(180deg,#ffffff 0%, #f8f9fc 100%)}
+.acc-item.burgundy{background:linear-gradient(180deg,#ffffff 0%, #fcf8fa 100%)}
+.acc-item.gold{background:linear-gradient(180deg,#fffdf8 0%, #fcf9ef 100%)}
+.acc-btn{width:100%;border:none;background:transparent;text-align:left;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer}
+.acc-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;flex:0 0 auto}
+.acc-item.teal .acc-icon{background:var(--teal-soft)}
+.acc-item.navy .acc-icon{background:var(--navy-soft)}
+.acc-item.burgundy .acc-icon{background:var(--burg-soft)}
+.acc-item.gold .acc-icon{background:var(--gold-soft)}
+.acc-text{flex:1 1 auto;min-width:0}
+.acc-title{font-size:18px;font-weight:900;line-height:1.2}
+.acc-summary{font-size:13px;color:var(--muted);line-height:1.45;margin-top:4px}
+.acc-toggle{font-size:24px;font-weight:900;color:var(--muted);line-height:1;transition:transform .2s ease}
+.acc-item.open .acc-toggle{transform:rotate(45deg)}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.acc-item.open .acc-panel{max-height:950px}
+.acc-inner{padding:0 18px 18px 74px}
+.acc-copy{font-size:16px;line-height:1.7;color:var(--ink)}
+.acc-copy p{margin:0 0 14px}
+.acc-example{margin-top:14px;padding:14px 16px;border-radius:14px;background:white;border:1px solid var(--line)}
+.acc-example strong{display:block;margin-bottom:6px;font-size:14px}
+.acc-example span{display:block;font-size:15px;line-height:1.55;color:#374151}
 
-/* bottom nav */
-.navbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:1200;background:rgba(44,53,82,.96);color:white;border-radius:16px;padding:9px;display:flex;gap:7px;box-shadow:0 12px 34px rgba(0,0,0,.24);align-items:center}.navbtn{border:none;border-radius:10px;background:rgba(255,255,255,.09);color:white;padding:10px 13px;font-weight:800;font-size:12px}.navbtn:hover{background:rgba(255,255,255,.16)}.navbtn:disabled{opacity:.3;cursor:default}.counter{font-size:11px;color:#C5C9D8;padding:0 8px;min-width:80px;text-align:center}
 
-/* notes */
-.notesPanel{position:fixed;top:74px;right:14px;bottom:74px;width:min(420px,42vw);z-index:1400;background:rgba(255,255,255,.985);border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 60px rgba(44,53,82,.28);padding:22px;transform:translateX(calc(100% + 30px));transition:transform .35s ease;overflow:auto}.notesPanel.open{transform:translateX(0)}.notesPanel h3{margin:0 0 6px;color:var(--navy);font-size:22px}.notesPanel .noteEyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);font-weight:900;margin-bottom:12px}.notesPanel p{font-size:15px;line-height:1.6;color:#4A4B57;white-space:pre-line}.notesHint{position:fixed;right:14px;bottom:18px;z-index:1210;color:var(--muted);font-size:11px;background:rgba(245,242,236,.88);padding:7px 9px;border-radius:8px}
+.calibration-card{margin-top:34px;background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.5);border-radius:24px;padding:28px;box-shadow:0 18px 45px rgba(4,37,55,.18)}
+.calibration-head{display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer}
+.calibration-head-left{display:flex;align-items:center;gap:14px}
+.calibration-icon{width:48px;height:48px;border-radius:14px;background:var(--burg-soft);display:grid;place-items:center;font-size:24px}
+.calibration-title{font-size:27px;font-weight:900;line-height:1.15}
+.calibration-sub{font-size:14px;color:var(--muted);margin-top:4px}
+.calibration-plus{font-size:26px;font-weight:900;color:var(--burgundy);transition:transform .2s ease}
+.calibration-card.open .calibration-plus{transform:rotate(45deg)}
+.calibration-panel{max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .3s ease,margin .35s ease;margin-top:0}
+.calibration-card.open .calibration-panel{max-height:2600px;opacity:1;margin-top:20px}
+.calibration-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 20px}
+.calibration-item{border:1px solid var(--line);border-radius:16px;padding:16px;background:white}
+.calibration-item.too-little{border-top:5px solid var(--teal)}
+.calibration-item.too-much{border-top:5px solid var(--burgundy)}
+.calibration-item.too-late{border-top:5px solid var(--navy)}
+.calibration-item .cal-icon{font-size:26px;margin-bottom:9px}
+.calibration-item h3{font-size:18px;margin:0 0 7px}
+.calibration-item p{font-size:14px;line-height:1.55;color:#4d5966;margin:0}
+.calibration-copy{font-size:17px;line-height:1.72;max-width:980px}
+.calibration-copy p{margin:0 0 15px}
+.calibration-principle{margin:18px 0;padding:17px 19px;border-radius:14px;background:linear-gradient(90deg,#EEF5F7,#F8FAFB);border-left:6px solid var(--burgundy);font-size:20px;line-height:1.45;font-weight:900}
 
-/* map */
-.mapOverlay{position:fixed;inset:62px 0 0 0;z-index:1300;background:rgba(245,242,236,.96);display:none;align-items:center;justify-content:center;padding:30px}.mapOverlay.open{display:flex}.mapCard{width:min(1000px,94vw);height:min(650px,84vh);background:white;border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:28px;position:relative}.mapCard h2{margin:0;color:var(--navy);font-size:28px}.mapGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;max-height:500px;overflow:auto}.mapItem{border:1px solid var(--border);background:var(--card);border-radius:14px;padding:14px;text-align:left}.mapItem:hover{border-color:var(--azure);transform:translateY(-1px)}.mapItem b{display:block;color:var(--navy);font-size:14px}.mapItem span{font-size:11px;color:var(--muted)}.closeMap{position:absolute;top:18px;right:18px;border:none;background:#EEF0F4;color:var(--navy);border-radius:50%;width:34px;height:34px;font-size:20px}
+@media(max-width:900px){
+  .hero-head{flex-direction:column;gap:10px}
+  .brand{justify-content:flex-start}
+  .brand img{height:76px;max-width:min(300px,72vw)}
+.calibration-grid{grid-template-columns:1fr}}
 
-/* workshop plan fields */
-.planGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.field{background:#F8F6F2;border:1px solid var(--border);border-radius:14px;padding:13px}.field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px}.field input,.field textarea,.field select{width:100%;border:1px solid #CFCBC3;background:white;border-radius:9px;padding:10px;color:var(--navy);outline:none}.field textarea{min-height:70px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--azure);box-shadow:0 0 0 3px rgba(57,135,160,.12)}
 
-@media(max-width:900px){.scene h1{font-size:42px}.scene h2{font-size:32px}.scene p{font-size:17px}.grid3{grid-template-columns:1fr}.grid2,.stageMeta,.planGrid{grid-template-columns:1fr}.notesPanel{width:min(92vw,420px)}.mapGrid{grid-template-columns:1fr 1fr}.toolbar .hideSmall{display:none}}
+.touchpoint{margin-top:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#FFFFFF,#F8FBFC);overflow:hidden;box-shadow:0 8px 20px rgba(47,110,131,.10)}
+.touchpoint-btn{width:100%;border:none;background:transparent;padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left}
+.touchpoint-icon{width:46px;height:46px;border-radius:14px;background:var(--burg-soft);display:grid;place-items:center;font-size:22px;flex:0 0 auto}
+.touchpoint-copy{flex:1}.touchpoint-kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--burgundy);margin-bottom:4px}
+.touchpoint-title{font-size:19px;font-weight:900;line-height:1.2}.touchpoint-sub{font-size:13px;color:var(--muted);line-height:1.45;margin-top:4px}
+.touchpoint-plus{font-size:24px;font-weight:900;color:var(--burgundy);transition:transform .2s}.touchpoint.open .touchpoint-plus{transform:rotate(45deg)}
+.touchpoint-panel{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .3s ease}.touchpoint.open .touchpoint-panel{max-height:3000px;opacity:1}
+.touchpoint-inner{padding:0 20px 20px}.touchpoint-body{font-size:17px;line-height:1.72}.touchpoint-body p{margin:0 0 15px}
+.touchpoint-question{margin:16px 0;padding:16px 18px;border-radius:14px;background:#EEF5F7;border-left:5px solid var(--teal);font-size:20px;line-height:1.4;font-weight:900}
+
+.touch-qa{border:1px solid var(--line);border-radius:14px;background:#F9FCFD;overflow:hidden;margin:12px 0}
+.touch-qa-btn{width:100%;border:none;background:#EEF5F7;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;text-align:left;border-left:5px solid var(--teal)}
+.touch-qa-q{font-size:19px;line-height:1.35;font-weight:900;color:var(--ink)}
+.touch-qa-plus{font-size:22px;font-weight:900;color:var(--teal);transition:transform .2s}
+.touch-qa.open .touch-qa-plus{transform:rotate(45deg)}
+.touch-qa-panel{max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .25s ease}
+.touch-qa.open .touch-qa-panel{max-height:700px;opacity:1}
+.touch-qa-answer{padding:18px 20px;font-size:16px;line-height:1.65;background:white}
+.touch-qa-answer ul{margin:8px 0 0 20px;padding:0}
+.touch-qa-answer li{margin:0 0 11px;line-height:1.55}
+.touch-qa-answer li:last-child{margin-bottom:0}
+.touch-qa-answer strong{color:var(--ink);font-weight:900}
+.touch-qa-answer .answer-lead{margin:0 0 12px;font-weight:800}
+.touch-qa-answer .answer-note{margin-top:14px;padding:12px 14px;border-radius:12px;background:#F7F9FA;border-left:4px solid var(--burgundy);line-height:1.55}
+
+
+.touchpoint-options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}.touchpoint-option{border:1px solid var(--line);border-radius:12px;background:white;padding:12px 14px;font-size:14px;font-weight:800}
+@media(max-width:700px){.touchpoint-options{grid-template-columns:1fr}}
+
+.section{margin-top:34px;background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.5);border-radius:24px;padding:28px;box-shadow:0 18px 45px rgba(4,37,55,.18)}
+.section h2{font-size:28px;margin:0 0 8px}
+.section p.lead{margin:0 0 18px;color:var(--muted);font-size:16px}
+.spectrum{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;align-items:stretch}
+.stage{position:relative;border:none;min-height:182px;border-radius:16px;padding:16px 12px;text-align:left;cursor:pointer;color:white;box-shadow:0 7px 16px rgba(30,36,52,.10);transition:.15s}
+.stage:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(30,36,52,.15)}
+.stage.active{outline:4px solid rgba(255,255,255,.85);outline-offset:-7px}
+.stage.info{background:var(--teal)} .stage.boundary{background:var(--azure)} .stage.direct{background:var(--navy)} .stage.escalate{background:var(--burgundy)}
+.stage-num{font-size:12px;font-weight:900;letter-spacing:.1em;opacity:.8}
+.stage-name{font-size:17px;font-weight:900;line-height:1.1;margin-top:45px}
+.stage-tag{font-size:12px;line-height:1.35;opacity:.88;margin-top:8px}
+.stage-open-hint{position:absolute;right:10px;bottom:9px;font-size:18px;font-weight:900;opacity:.65;transition:transform .2s}
+.stage.active .stage-open-hint{transform:rotate(45deg)}
+.group-labels{margin-top:10px;display:grid;grid-template-columns:3fr 2fr 3fr;gap:10px}
+.group{border-top:2px solid var(--line);padding-top:7px;text-align:center;font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+
+.exp-wrap{max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .3s ease,margin .35s ease;margin-top:0}
+.exp-wrap.open{max-height:3500px;opacity:1;margin-top:18px}
+.exp-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:22px 24px 18px;color:white}
+.exp-head.info{background:var(--teal)} .exp-head.boundary{background:var(--azure)} .exp-head.direct{background:var(--navy)} .exp-head.escalate{background:var(--burgundy)}
+.exp-kicker{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+.exp-title{font-size:30px;font-weight:900;margin-top:3px}
+.exp-close{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.5);color:white;background:rgba(255,255,255,.12);font-size:21px;cursor:pointer}
+.exp-body{padding:24px;display:grid;grid-template-columns:250px 1fr;gap:24px}
+.exp-visual{display:flex;flex-direction:column;gap:12px}
+.mini-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:white}
+.mini-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--muted);margin-bottom:7px}
+.mini-main{font-size:16px;font-weight:900;line-height:1.25}
+.mini-sub{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:5px}
+.exp-copy{font-size:17px;line-height:1.72}
+.exp-copy p{margin:0 0 15px}
+.example-line{margin:17px 0;border-left:5px solid var(--teal);background:#EEF5F7;border-radius:10px;padding:15px 17px;font-size:20px;line-height:1.45;font-weight:800}
+
+.stage-skills{
+  margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#F8FBFC;overflow:hidden
+}
+.stage-skills-btn{
+  width:100%;border:none;background:transparent;padding:15px 16px;display:flex;align-items:center;gap:12px;
+  cursor:pointer;text-align:left
+}
+.stage-skills-icon{
+  width:38px;height:38px;border-radius:11px;background:var(--teal-soft);display:grid;place-items:center;font-size:19px;flex:0 0 auto
+}
+.stage-skills-text{flex:1}
+.stage-skills-title{font-size:15px;font-weight:900;line-height:1.2}
+.stage-skills-sub{font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:3px}
+.stage-skills-plus{font-size:22px;font-weight:900;color:var(--teal);transition:transform .2s}
+.stage-skills.open .stage-skills-plus{transform:rotate(45deg)}
+.stage-skills-panel{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .25s ease}
+.stage-skills.open .stage-skills-panel{max-height:2600px;opacity:1}
+.stage-skills-inner{padding:0 16px 16px}
+.skill-list{display:flex;flex-direction:column;gap:10px}
+.skill-item{background:white;border:1px solid var(--line);border-radius:13px;padding:13px 14px}
+.skill-name{font-size:14px;font-weight:900;margin-bottom:5px}
+.skill-copy{font-size:14px;line-height:1.58;color:#3C4654}
+.skill-framework{
+  margin-top:12px;padding:13px 14px;border-radius:12px;background:#EEF5F7;border-left:4px solid var(--teal);
+  font-size:14px;line-height:1.6
+}
+.skill-framework strong{display:block;margin-bottom:4px}
+
+.watch{margin-top:18px;border-radius:12px;background:#F4F0F2;padding:14px 16px;border-left:4px solid var(--burgundy)}
+.watch strong{display:block;margin-bottom:4px}.watch span{font-size:14px;line-height:1.5;color:#4B5360}
+
+@media(max-width:900px){
+  .decision{grid-template-columns:1fr}
+  .spectrum{grid-template-columns:repeat(4,1fr)}
+  .group-labels{display:none}
+  .exp-body{grid-template-columns:1fr}
+  .exp-visual{display:grid;grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:620px){
+  .shell{padding:14px 14px 40px} .hero{padding:24px 20px}
+  .spectrum{grid-template-columns:repeat(2,1fr)}
+  .exp-visual{grid-template-columns:1fr}
+  .acc-inner{padding:0 14px 16px 14px}
+  .acc-btn{align-items:flex-start}
+}
 </style>
 </head>
 <body>
-<div id="app">
+<div class="shell">
   <div class="topbar">
-    <div class="brand"><div class="brandMark">FW</div><div class="brandText"><strong>Pushing Back Professionally</strong><span>Interactive workshop</span></div></div>
-    <div class="toolbar">
-      <button class="toolbtn" id="mapBtn">Map</button>
-      <button class="toolbtn hideSmall" id="notesBtn">Presenter Script</button>
-      <button class="toolbtn primary" id="fullscreenBtn">Full Screen</button>
+    
+    <div class="actions">
+      <button class="btn" onclick="document.documentElement.requestFullscreen?.()">Full screen</button>
+      <button class="btn" onclick="collapseAll()">Collapse all</button>
     </div>
   </div>
-  <div class="viewport"><div class="world" id="world"></div></div>
 
-  <div class="navbar">
-    <button class="navbtn" id="prevBtn">← Previous</button>
-    <div class="counter" id="counter">1 / 20</div>
-    <button class="navbtn" id="nextBtn">Next →</button>
-  </div>
-  <div class="notesHint">← → navigate · S script · M map</div>
+  <section class="hero">
+    <div class="brand"><img src="data:image/png;base64,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" alt="Fearless Workplace logo"></div>
+    <div class="hero-head">
+      <div class="hero-copy">
+        <h1>Pushing Back<br>Professionally</h1>
+        <div class="sub">Pushback is a range of strategic responses. The skill is choosing the lowest level that still protects what needs protecting.</div>
+      </div>
+    </div>
+    <div class="rule">Use the lowest level of pushback that adequately protects you.</div>
 
-  <aside class="notesPanel" id="notesPanel">
-    <div class="noteEyebrow">Presenter script</div>
-    <h3 id="notesTitle">Workshop</h3>
-    <p id="notesText"></p>
-  </aside>
 
-  <div class="mapOverlay" id="mapOverlay"><div class="mapCard"><button class="closeMap" id="closeMap">×</button><h2>Workshop Map</h2><div class="mapGrid" id="mapGrid"></div></div></div>
+    <div class="intro-card" id="introCard">
+      <button class="intro-btn" onclick="toggleIntro()">
+        <div class="intro-badge">↗</div>
+        <div class="intro-text">
+          <div class="intro-kicker">Start here</div>
+          <div class="intro-title">Why the Pushback Spectrum exists</div>
+          <div class="intro-sub">The problem is usually not whether to push back. It is choosing the right move at the right time.</div>
+        </div>
+        <div class="intro-plus">+</div>
+      </button>
+      <div class="intro-panel">
+        <div class="intro-inner">
+          <div class="intro-copy">
+            <p>A lot of workplace problems get worse because people push back at the wrong level and at the wrong time.</p>
+
+            <p>Sometimes someone does almost nothing for weeks or months. They absorb the extra work. Let an inaccurate statement sit there. Allow someone to keep undermining them. Hope the person stops. Then eventually they hit the wall and jump from silence straight to confrontation.</p>
+
+            <p>Other times, the response goes in the opposite direction. Something happens once, the situation feels threatening or unfair, and the response jumps immediately to the strongest response available: a formal complaint, senior leadership, HR, or a very direct confrontation.</p>
+
+            <p>Both patterns can create problems.</p>
+
+            <div class="intro-callout">Pushback is not one skill. It is a range of different responses, and the timing matters.</div>
+
+            <p>There is a big difference between asking a question, clarifying a claim, correcting the record, setting a boundary, directly naming a pattern, challenging a position, and escalating the issue. Those are all forms of pushback, but they do different jobs.</p>
+
+            <p>When the response is too small, the behavior can become normal. The workload keeps growing. The inaccurate version starts to look like the accepted version. The boundary keeps getting tested because nothing interrupts it.</p>
+
+            <p>When the response is too big, the conversation can shift away from the original problem and onto the response itself. Now people are evaluating whether the reaction was proportionate instead of looking at what needed to be addressed.</p>
+
+            <p>And when the response comes too late, both problems can happen at once. Someone stays quiet through all the smaller opportunities to respond, then finally hits a limit and comes in at a much higher level than would have been necessary earlier.</p>
+
+            <p>That is the purpose of the spectrum.</p>
+
+            <div class="intro-callout">The better question is not “Should something be said?” It is “What level of pushback fits this situation right now?”</div>
+
+            <p>The spectrum gives eight levels, starting with inquiry and clarification and moving through correction, boundaries, direct conversation, direct challenge, and escalation.</p>
+
+            <p>Those levels do not have to be used mechanically or in order. Some situations justify going much higher immediately. The framework is there to make the response deliberate instead of reactive.</p>
+
+            <p>So the decision comes back to four things: What needs protecting? What happens if nothing is done? What is the risk of responding? And what is the lowest level of pushback that will still protect what needs protecting?</p>
+
+            <p>The goal is not more confrontation. The goal is better calibration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="touchpoint" id="touchOpening">
+      <button class="touchpoint-btn" onclick="toggleTouchpoint('touchOpening')">
+        <div class="touchpoint-icon">✉️</div>
+        <div class="touchpoint-copy">
+          <div class="touchpoint-kicker">Opening exercise</div>
+          <div class="touchpoint-title">What would you do first?</div>
+          <div class="touchpoint-sub">Start with the scenario before introducing the spectrum.</div>
+        </div>
+        <div class="touchpoint-plus">+</div>
+      </button>
+      <div class="touchpoint-panel"><div class="touchpoint-inner"><div class="touchpoint-body">
+        <p>Your boss sends you an email and copies their manager.</p>
+        <p>They say you have a “pattern of missing deadlines” and, because of that, they now want to be copied on all of your work communication.</p>
+        <p>The problem is: the claim is not accurate.</p>
+        <div class="touchpoint-question">What would you do first?</div>
+        <div class="touchpoint-options">
+          <div class="touchpoint-option">Ignore it</div><div class="touchpoint-option">Explain yourself</div>
+          <div class="touchpoint-option">Reply and correct it</div><div class="touchpoint-option">Ask for a meeting</div>
+          <div class="touchpoint-option">Push back directly</div><div class="touchpoint-option">Go above your boss</div>
+          <div class="touchpoint-option">Take it to HR</div>
+        </div>
+        <p>Every one of those responses could be considered pushback. But they are not the same level of pushback.</p>
+        <p>That is where people get into trouble. They under-respond, over-respond, or wait so long that by the time they respond, they are already furious.</p>
+        <div class="touchpoint-question">The skill is not just knowing whether to push back. The skill is knowing how much pushback this situation requires right now.</div>
+      </div></div></div>
+    </div>
+
+    <div class="decision">
+      <button class="q" data-q="protect" onclick="toggleQuestion('protect')">
+        <div class="qnum">1</div><strong>What needs protecting?</strong>
+        <small>Record, reputation, workload, authority, time, ownership, boundary.</small><div class="plus">+</div>
+      </button>
+      <button class="q" data-q="nothing" onclick="toggleQuestion('nothing')">
+        <div class="qnum">2</div><strong>What happens if you do nothing?</strong>
+        <small>Does this disappear, or does it become easier to repeat?</small><div class="plus">+</div>
+      </button>
+      <button class="q" data-q="risk" onclick="toggleQuestion('risk')">
+        <div class="qnum">3</div><strong>What is the risk of responding?</strong>
+        <small>Power, pattern, visibility, culture, retaliation risk, political capital.</small><div class="plus">+</div>
+      </button>
+    </div>
+
+    <div class="reveal" id="questionReveal">
+      <div class="reveal-card">
+        <div class="reveal-head" id="questionHead">
+          <div><div class="reveal-kicker" id="questionKicker"></div><div class="reveal-title" id="questionTitle"></div></div>
+          <button class="x" onclick="closeQuestion()">×</button>
+        </div>
+        <div class="reveal-body">
+          <div class="question-intro" id="questionIntro"></div>
+          <div class="accordion-list" id="questionAccordion"></div>
+          <div class="question-outro" id="questionOutro"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="calibration-card" id="calibrationCard">
+    <div class="calibration-head" onclick="toggleCalibration()">
+      <div class="calibration-head-left">
+        <div class="calibration-icon">⚖️</div>
+        <div>
+          <div class="eyebrow">Why calibration matters</div>
+          <div class="calibration-title">The risk is not only doing too little.</div>
+          <div class="calibration-sub">Pushback can fail when the response is too small, too big, or arrives too late.</div>
+        </div>
+      </div>
+      <div class="calibration-plus">+</div>
+    </div>
+
+    <div class="calibration-panel">
+      <div class="calibration-copy">
+        <p>The spectrum matters because there are two ways to lose control of a workplace problem. You can under-respond for so long that the behavior becomes normal, or you can jump so far up the scale that your response creates a second problem.</p>
+      </div>
+
+      <div class="calibration-grid">
+        <div class="calibration-item too-little">
+          <div class="cal-icon">↘️</div>
+          <h3>Too little</h3>
+          <p>You keep absorbing the workload, allowing the inaccurate version to stand, or letting the boundary get tested. The behavior gets easier to repeat because nothing interrupts it.</p>
+        </div>
+        <div class="calibration-item too-much">
+          <div class="cal-icon">↗️</div>
+          <h3>Too much</h3>
+          <p>You jump straight to a formal complaint, accusation, or confrontation before the problem is fully defined. The response can look disproportionate, and people may start evaluating your reaction instead of the original issue.</p>
+        </div>
+        <div class="calibration-item too-late">
+          <div class="cal-icon">💥</div>
+          <h3>Too late</h3>
+          <p>You stay quiet until you are furious. Then five weeks of frustration comes out in one conversation. Even when your underlying concern is legitimate, the intensity of the response can become the new focus.</p>
+        </div>
+      </div>
+
+      <div class="calibration-copy">
+        <p>That is the strategic problem with “exploding.” The problem is not simply that you showed emotion. The problem is that your reaction can become the loudest thing in the room. The conversation can shift from <em>“Was this person being undermined?”</em> to <em>“Why did they react like that?”</em></p>
+
+        <p>Now you are defending two things: the original issue and the way you responded to it.</p>
+
+        <p>The same logic applies to escalation. Escalation is not wrong because it is strong. It becomes weaker when you skip lower levels without a reason and arrive with a complaint that has not yet been clarified, corrected, bounded, or documented where those steps were appropriate.</p>
+
+        <p>If you go straight to HR, senior leadership, an ethics channel, or another formal process, the person receiving the complaint may reasonably ask: What exactly happened? What did you say? Was the claim ever clarified? Was the record corrected? Was a boundary stated? Did the behavior continue after that?</p>
+
+        <p>If you cannot answer those questions, the escalation may look premature even when your concern is legitimate. You also lose the benefit of the evidence created by earlier steps: the specific claim, your correction, the boundary, the repeated behavior, and the other person’s response.</p>
+
+        <div class="calibration-principle">Do not climb the spectrum mechanically. But do not skip levels without a reason.</div>
+
+        <p>There are situations where immediate escalation is appropriate. Serious safety concerns, threats, harassment, discrimination, violence, illegal conduct, or other high-risk situations may justify bypassing lower levels entirely. The point of the spectrum is not to force every problem through eight steps. It is to make sure the level you choose is deliberate and proportionate to the risk.</p>
+      </div>
+    </div>
+  </section>
+
+
+    <div class="touchpoint" id="touchMid">
+      <button class="touchpoint-btn" onclick="toggleTouchpoint('touchMid')">
+        <div class="touchpoint-icon">🧭</div>
+        <div class="touchpoint-copy">
+          <div class="touchpoint-kicker">Apply the framework</div>
+          <div class="touchpoint-title">Return to the deadline scenario</div>
+          <div class="touchpoint-sub">Use the three decision questions before choosing a level.</div>
+        </div>
+        <div class="touchpoint-plus">+</div>
+      </button>
+      <div class="touchpoint-panel"><div class="touchpoint-inner"><div class="touchpoint-body">
+        <p>Now go back to the same email.</p>
+
+        <div class="touch-qa" data-group="mid">
+          <button class="touch-qa-btn" onclick="toggleTouchQA(this)">
+            <div class="touch-qa-q">What needs protecting?</div>
+            <div class="touch-qa-plus">+</div>
+          </button>
+          <div class="touch-qa-panel">
+            <div class="touch-qa-answer">
+  <div class="answer-lead">Several things may need protecting here:</div>
+  <ul>
+    <li><strong>The record</strong> — the claim is now in writing.</li>
+    <li><strong>Your reputation</strong> — another manager has been copied and is seeing this version of your performance.</li>
+    <li><strong>Your authority and autonomy</strong> — the new monitoring requirement changes how much oversight your boss has over your day-to-day work.</li>
+  </ul>
+</div>
+          </div>
+        </div>
+
+        <div class="touch-qa" data-group="mid">
+          <button class="touch-qa-btn" onclick="toggleTouchQA(this)">
+            <div class="touch-qa-q">What happens if nothing is done?</div>
+            <div class="touch-qa-plus">+</div>
+          </button>
+          <div class="touch-qa-panel">
+            <div class="touch-qa-answer">
+  <div class="answer-lead">Doing nothing has its own risks:</div>
+  <ul>
+    <li><strong>The inaccurate claim may stand</strong> as the only version in the written record.</li>
+    <li><strong>The monitoring may become normal</strong> because nobody challenged the reason for it.</li>
+    <li><strong>The claim may be easier to repeat later</strong> because there is no correction sitting beside it.</li>
+    <li><strong>Other people may assume it is true</strong> because they never see another version.</li>
+  </ul>
+</div>
+          </div>
+        </div>
+
+        <div class="touch-qa" data-group="mid">
+          <button class="touch-qa-btn" onclick="toggleTouchQA(this)">
+            <div class="touch-qa-q">What is the risk of responding?</div>
+            <div class="touch-qa-plus">+</div>
+          </button>
+          <div class="touch-qa-panel">
+            <div class="touch-qa-answer">
+  <div class="answer-lead">The risk is not simply that your boss might dislike being challenged.</div>
+  <ul>
+    <li><strong>Power risk</strong> — your boss may control assignments, evaluation, access, opportunities, or how your performance is described upward.</li>
+    <li><strong>Political risk</strong> — because another leader is copied, the disagreement is already visible beyond the two of you.</li>
+    <li><strong>Record risk</strong> — anything you write back can be saved, forwarded, quoted later, or become part of the same performance record you are trying to protect.</li>
+    <li><strong>Backlash risk</strong> — a manager who does not handle disagreement well may increase scrutiny, become defensive, or shift attention toward your response.</li>
+    <li><strong>Proportionality risk</strong> — if the response is too aggressive, too long, or too emotional, people may start evaluating <em>how you responded</em> instead of the inaccurate claim.</li>
+  </ul>
+  <div class="answer-note"><strong>So the strategy:</strong> respond clearly enough to protect yourself, but cleanly enough that your response does not become a second problem.</div>
+</div>
+          </div>
+        </div>
+
+        <div class="touch-qa" data-group="mid">
+          <button class="touch-qa-btn" onclick="toggleTouchQA(this)">
+            <div class="touch-qa-q">Where would you start on the spectrum?</div>
+            <div class="touch-qa-plus">+</div>
+          </button>
+          <div class="touch-qa-panel">
+            <div class="touch-qa-answer">
+  <div class="answer-lead">This probably starts low on the spectrum:</div>
+  <ul>
+    <li><strong>Inquiry</strong> if you do not yet know which deadlines your boss means.</li>
+    <li><strong>Clarification</strong> if the claim is still broad or vague.</li>
+    <li><strong>Correction</strong> if the specific claim is clear and you already have the facts to disprove it.</li>
+  </ul>
+  <div class="answer-note">The point is not to find one perfect response. It is to choose the <strong>lowest level that still protects you</strong>.</div>
+</div>
+          </div>
+        </div>
+</div></div></div>
+    </div>
+
+
+  <section class="section">
+    <h2>The Pushback Spectrum</h2>
+    <p class="lead">Click a stage to open the fuller explanation. Click again to collapse.</p>
+    <div class="spectrum" id="spectrumGrid"></div>
+    <div class="group-labels">
+      <div class="group">Information</div><div class="group">Boundaries</div><div class="group">Confrontation + Escalation</div>
+    </div>
+
+    <div class="exp-wrap" id="expWrap">
+      <div class="exp-card">
+        <div class="exp-head" id="expHead">
+          <div><div class="exp-kicker" id="expKicker"></div><div class="exp-title" id="expTitle"></div></div>
+          <button class="exp-close" onclick="closeStage()">×</button>
+        </div>
+        <div class="exp-body">
+          <div class="exp-visual">
+            <div class="mini-card"><div class="mini-label">Use it when</div><div class="mini-main" id="useMain"></div><div class="mini-sub" id="useSub"></div></div>
+            <div class="mini-card"><div class="mini-label">What it does</div><div class="mini-main" id="doesMain"></div><div class="mini-sub" id="doesSub"></div></div>
+            <div class="mini-card"><div class="mini-label">What it protects</div><div class="mini-main" id="protectMain"></div><div class="mini-sub" id="protectSub"></div></div>
+          </div>
+          <div>
+            <div class="exp-copy" id="stageCopy"></div>
+            <div class="stage-skills" id="stageSkills">
+              <button class="stage-skills-btn" onclick="toggleStageSkills()">
+                <div class="stage-skills-icon">🧰</div>
+                <div class="stage-skills-text">
+                  <div class="stage-skills-title">Skills that support this level</div>
+                  <div class="stage-skills-sub" id="stageSkillsSummary"></div>
+                </div>
+                <div class="stage-skills-plus">+</div>
+              </button>
+              <div class="stage-skills-panel">
+                <div class="stage-skills-inner" id="stageSkillsContent"></div>
+              </div>
+            </div>
+            <div class="watch"><strong>What happens next matters</strong><span id="watchText"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="touchpoint" id="touchFinal">
+      <button class="touchpoint-btn" onclick="toggleTouchpoint('touchFinal')">
+        <div class="touchpoint-icon">📝</div>
+        <div class="touchpoint-copy">
+          <div class="touchpoint-kicker">Your turn</div>
+          <div class="touchpoint-title">Map one real situation</div>
+          <div class="touchpoint-sub">Use the spectrum on something you are dealing with now.</div>
+        </div>
+        <div class="touchpoint-plus">+</div>
+      </button>
+      <div class="touchpoint-panel"><div class="touchpoint-inner"><div class="touchpoint-body">
+        <p>Think of one workplace situation where you know something needs to change, but you are not sure how to respond.</p>
+        <div class="touchpoint-question">1. What needs protecting?</div>
+        <p>Record, reputation, workload, authority, time, ownership, boundary, or something else?</p>
+        <div class="touchpoint-question">2. What happens if you do nothing?</div>
+        <p>Does the issue disappear, or does silence make it easier for the behavior, expectation, or narrative to continue?</p>
+        <div class="touchpoint-question">3. Which level fits right now?</div>
+        <p>Choose the lowest level that still protects what needs protecting.</p>
+        <div class="touchpoint-question">4. If that does not work, what is your next level?</div>
+        <p>Decide that before the next interaction. The goal is to have a plan before pressure forces the decision for you.</p>
+      </div></div></div>
+    </div>
+
+  </section>
 </div>
 
 <script>
-const STAGES = [
- {n:'01',name:'Inquiry',headline:'Start with curiosity',def:'“Tell me more.”',use:'You need information before taking a position.',protect:'Accuracy and understanding.',boss:'“Can you help me understand which deadlines you’re referring to?”',peer:'“Can you walk me through what happened on your end with the handoff?”',watch:'If the answer stays vague, move toward Clarification.',take:'Asking a real question is already a quiet form of pushback.',c:'teal'},
- {n:'02',name:'Clarification',headline:'Get precise',def:'“Let’s get specific.”',use:'The claim is too broad to address fairly.',protect:'Precision and a usable record.',boss:'“Are you referring to the March 12 deliverable, the April 3 deliverable, or something else?”',peer:'“When you say I didn’t finish my part, are you talking about the client deck or the data pull?”',watch:'Specific claims can now be tested against facts.',take:'A vague claim loses power when you force specificity.',c:'azure'},
- {n:'03',name:'Correction',headline:'Fix the record',def:'“That record is inaccurate or incomplete.”',use:'You know the specific claim and the facts do not support it.',protect:'Record, reputation, ownership, performance history.',boss:'“The March 12 deliverable was submitted on March 11. The April 3 deadline changed after I was reassigned to X.”',peer:'“I sent the data pull Tuesday, ahead of the deadline. Here’s the thread.”',watch:'If the false claim continues after correction, that is new information.',take:'State the fact. Bring the receipt. Let the correction do the work.',c:'teal'},
- {n:'04',name:'Indirect Boundary',headline:'Set a process limit',def:'A boundary framed as a process question.',use:'You need structure or scope without making the interaction more adversarial than necessary.',protect:'Time, workload, ownership, communication boundaries.',boss:'“If you’d like me to copy you on emails, can we define which projects and for how long?”',peer:'“Can we confirm ownership in writing before each phase going forward?”',watch:'If the structure is ignored or rejected, the limit may need to become explicit.',take:'Process can be a boundary.',c:'azure'},
- {n:'05',name:'Explicit Boundary',headline:'State the condition directly',def:'“Here is the limit.”',use:'The boundary needs to be unmistakable.',protect:'Your conditions for participation, workload, treatment, or process.',boss:'“I’m willing to follow a new communication process, but I need expectations and performance concerns to be stated specifically and accurately.”',peer:'“I need us to check with each other before either of us tells the team something inaccurate about who did what.”',watch:'If the person tests the limit, your job is to hold it rather than invent a new boundary.',take:'A boundary only works if the other person can tell where it is.',c:'teal'},
- {n:'06',name:'Direct Conversation',headline:'Name what is happening',def:'“We need to address this directly.”',use:'There is a pattern, relationship problem, or repeated issue that needs a real conversation.',protect:'Working relationship, role clarity, reputation, continued functioning.',boss:'“I’m concerned there’s a growing narrative about missed deadlines that doesn’t match the record, and I want to understand what’s driving that.”',peer:'“I want to talk about that email because it framed things in a way that wasn’t accurate, and I want to understand why.”',watch:'Their response tells you whether this can be resolved directly or requires a challenge.',take:'Naming the pattern changes the conversation.',c:'azure'},
- {n:'07',name:'Direct Challenge',headline:'Contest the position',def:'“I disagree.”',use:'The position itself now needs to be explicitly contested.',protect:'Record, authority, reputation, formal standing.',boss:'“I disagree with the characterization that I have a pattern of missing deadlines. The documentation does not support that.”',peer:'“I don’t agree that I dropped the ball here. The record shows otherwise, and I’d like that corrected with the team.”',watch:'A direct challenge should be supported by the record you have built.',take:'Flat and factual usually lands harder than loud.',c:'teal'},
- {n:'08',name:'Escalation',headline:'Involve greater authority',def:'Bring the issue into a higher-authority or formal process.',use:'The stakes, pattern, failure of direct resolution, or seriousness of the issue justify organizational authority.',protect:'Your position when direct resolution is no longer adequate.',boss:'Skip-level manager, HR, formal process, or another appropriate authority.',peer:'Shared manager or project authority once the pattern and impact justify it.',watch:'Escalation is strongest when it arrives with a clear record of what happened and what you already tried.',take:'Escalation is a strategic move, not a substitute for diagnosis.',c:'burg'}
+const questions = {
+  protect: {
+    kicker: "Decision question 01",
+    title: "What needs protecting?",
+    intro: `<p>This is the first question because pushback should have a job. Before you decide what to say, you need to know what you are trying to protect. Otherwise you end up reacting to irritation instead of protecting the actual thing that is at risk.</p><div class="callout">The response should match the thing that is at risk.</div>`,
+    outro: `<p>Once you know what needs protecting, the next question becomes much easier: what happens if you do nothing?</p>`,
+    items: [
+      {icon:'📄', tone:'teal', title:'Record', summary:'What is documented about your performance, conduct, decisions, or work.', body:`Sometimes what needs protecting is your record. If a manager writes that you have a pattern of missing deadlines, gives feedback based on something that did not happen, or documents a performance concern inaccurately, the problem is bigger than whether the comment feels unfair. There is now a version of your performance sitting somewhere that could be referred to later. When that happens, pushback is about protecting the record, not proving that you are a good person.`, exampleTitle:'Record example', example:`A written warning says you failed to complete a task on time, but the email thread shows the deadline changed and you delivered by the revised date.`},
+      {icon:'👁', tone:'navy', title:'Reputation', summary:'How other people are being taught to see your reliability, judgment, or credibility.', body:`Sometimes it is your reputation. A coworker may repeatedly imply that you are disorganized, difficult, uncooperative, or unreliable. They may question your work in front of other people, take one small issue and present it as a pattern, or make comments that slowly shape how other people see you. If the audience begins absorbing that version, you may need to respond even when the individual comment seems small.`, exampleTitle:'Reputation example', example:`Someone repeatedly tells others that they “had to fix” your work, even though the changes were normal collaboration and your original work was not defective.`},
+      {icon:'📦', tone:'gold', title:'Workload', summary:'Work being shifted to you, expanded, or treated as yours without agreement.', body:`Your workload can also need protecting. One small favor is one thing. A pattern where you become the person who catches unfinished work, fixes other people’s errors, covers gaps, or absorbs responsibilities that were never assigned to you is something else. If you keep saying yes without addressing it, the extra work can quietly become your job.`, exampleTitle:'Workload example', example:`A coworker regularly sends unfinished pieces to you at the end of the process, and because you keep rescuing the deadline, finishing their work quietly becomes part of your role.`},
+      {icon:'🧭', tone:'teal', title:'Authority', summary:'Your ability to make decisions, lead work, direct a process, or perform your role.', body:`Authority matters when someone is undermining your ability to do the role you are responsible for. They may bypass you, countermand decisions you are supposed to make, give conflicting direction to people you lead, withhold information you need, or go around you to get a different answer after you have already made a decision. The issue is not just annoyance. Your ability to lead the work is being weakened.`, exampleTitle:'Authority example', example:`You are responsible for a project, but a peer repeatedly gives instructions directly to the people working on it and changes decisions without including you.`},
+      {icon:'⏱', tone:'navy', title:'Time', summary:'Repeated access to your availability, schedule, attention, or off-hours time.', body:`Time is another resource people often fail to recognize as something they are allowed to protect. That can mean constant last-minute requests, meetings that repeatedly get placed outside your agreed schedule, messages that create fake urgency, or an expectation that you will always rearrange your priorities because someone else waited too long. When the pattern is chronic, your time is what needs protecting.`, exampleTitle:'Time example', example:`Every Friday afternoon, someone sends work marked urgent that they have known about all week, and the expectation has become that you will drop everything to rescue it.`},
+      {icon:'✍', tone:'burgundy', title:'Ownership', summary:'Credit, authorship, responsibility, or control over work you created or led.', body:`Ownership is about who gets credit, who gets to speak for the work, and who is treated as responsible for it. People often stay quiet here because they do not want to sound petty. But when your ideas are presented as someone else’s, your work is taken over without discussion, or responsibility is assigned to you only after something goes wrong, there is a real issue around ownership and credit.`, exampleTitle:'Ownership example', example:`You developed the recommendation and did the analysis, but another person presents it upward as their own work and you are left out of the conversation.`},
+      {icon:'🚧', tone:'gold', title:'Boundary', summary:'A limit you have already set around access, behavior, workload, or process.', body:`Sometimes what needs protecting is simply a boundary you already set. You said you are not available after a certain time. You said you cannot take on another responsibility without something else moving. You asked for concerns about your work to be brought directly to you. Then somebody tests whether that limit is real. At that point, the issue is not only the request. It is whether the boundary will hold.`, exampleTitle:'Boundary example', example:`You said you cannot keep taking same-day requests without reprioritizing your existing work. The next week, the same person sends another “urgent” request and acts as though the earlier conversation never happened.`},
+    ]
+  },
+  nothing: {
+    kicker: "Decision question 02",
+    title: "What happens if you do nothing?",
+    intro: `<p>Not every irritating thing deserves a response. Sometimes the best strategic choice is to let something die. But that decision should come from understanding the consequence of silence, not from fear of conflict.</p>`,
+    outro: `<div class="callout">The question is not “Can I tolerate this?” The question is “What becomes easier to repeat, expand, or believe if I do nothing?”</div><p>That does not mean every situation requires a bigger response. It means you are looking at trajectory. Is this likely to disappear, or are you watching the beginning of something that will be harder to undo later?</p>`,
+    items: [
+      {icon:'💨', tone:'teal', title:'Sometimes the comment dies on its own', summary:'Silence is sometimes a real strategic option.', body:`If somebody makes one snide comment, it has no audience, it is not repeated, and nobody is making a decision based on it, responding may give the comment more importance than it deserves. In that kind of situation, silence may genuinely be the cleanest move.`},
+      {icon:'📌', tone:'gold', title:'Silence can create precedent', summary:'What you accept once can become the new default.', body:`If you repeatedly accept work that is not yours, people may begin treating that workload as normal. If you keep allowing someone to bypass you, the bypass can become the process. If somebody takes credit and you never correct the record, other people may start assuming the work was theirs. Silence can quietly train the environment.`},
+      {icon:'🧱', tone:'navy', title:'Silence can allow a narrative to harden', summary:'A false or distorted version gets stronger when it goes unanswered.', body:`A vague accusation can turn into “everybody knows.” A single complaint can turn into a supposed pattern. A manager’s inaccurate description can travel upward without your version ever entering the conversation. If the cost of silence is that the wrong story hardens, then silence is no longer neutral.`},
+      {icon:'🎯', tone:'burgundy', title:'Silence can teach people where the limit is', summary:'People learn how much pressure it takes to get access or compliance.', body:`If you set a boundary and then abandon it the first time someone pushes, the other person learns that the boundary changes under pressure. If someone undermines you and you compensate by quietly fixing the fallout every time, they may never experience a reason to stop. Sometimes what doing nothing does is teach the other person exactly how far they can go.`},
+    ]
+  },
+  risk: {
+    kicker: "Decision question 03",
+    title: "What is the risk of responding?",
+    intro: `<p>This question keeps pushback strategic. You can be completely right about the substance of an issue and still make a poor decision about timing, channel, or level. Risk does not tell you to stay silent. It tells you how carefully to choose the move.</p>`,
+    outro: `<div class="callout">Risk is not a reason to give up your position. It is information you use to choose the level, language, timing, evidence, and channel.</div><p>The goal is not to eliminate every possible consequence. You cannot control how another person reacts. The goal is to stop walking into the interaction blind.</p>`,
+    items: [
+      {icon:'⚖️', tone:'teal', title:'Power', summary:'Who can affect your job, schedule, reputation, access, or future opportunities?', body:`A peer who annoys you does not have the same leverage as a person who controls your assignments, schedule, performance evaluation, access to leadership, or future opportunities. Greater power does not mean you stay silent. It means you think more carefully about preparation and exposure.`},
+      {icon:'🔁', tone:'gold', title:'Pattern', summary:'A first incident and repeated behavior are not the same problem.', body:`A first incident may call for inquiry or correction. Repeated behavior after you have already addressed it tells you something else. The problem may no longer be confusion. It may be disregard, testing, or deliberate pressure.`},
+      {icon:'👥', tone:'navy', title:'Audience', summary:'Who else is seeing or hearing this version?', body:`A private criticism may stay between two people. A criticism in front of a team can affect reputation. A statement copied upward can influence how leadership sees you. The same sentence can create very different consequences depending on who hears it.`},
+      {icon:'✉️', tone:'teal', title:'Channel', summary:'Verbal, written, public, and asynchronous communication are not equivalent.', body:`Written communication creates a record. A message can be forwarded. A written correction can preserve your version. Sometimes moving from spoken to written is part of the strategy because the issue now needs accuracy or documentation.`},
+      {icon:'🕸️', tone:'burgundy', title:'Political capital', summary:'How much credibility, trust, and support do you have around you?', body:`Someone who is well established and widely trusted may have more room to be direct than someone who is new, isolated, or already being framed negatively. Political capital does not determine whether you deserve to push back. It affects how much room you have and how carefully you may need to calibrate.`},
+      {icon:'⚠️', tone:'gold', title:'Retaliation risk', summary:'How does this person respond when challenged?', body:`Some people respond to reasonable pushback by discussing the issue. Others respond by increasing scrutiny, withholding information, becoming hostile, excluding you, changing assignments, recruiting other people, or trying to make the pushback itself the problem. That possibility should affect your preparation, not erase your position.`},
+    ]
+  }
+};
+
+const stages = [
+ {n:1,name:"Inquiry",tag:"Get information.",group:"info",useMain:"You do not have enough information yet.",useSub:"The claim, request, or problem is still unclear.",doesMain:"Opens the issue.",doesSub:"You resist reacting before you know what is being said.",protectMain:"Judgment.",protectSub:"You avoid defending yourself against a version that has not been defined.",copy:`<p>Inquiry is the lowest level of pushback, and people often miss it because it does not sound confrontational. You are not agreeing. You are not defending yourself. You are making the other person give you enough information to work with.</p><p>If your boss says you have a “pattern of missing deadlines,” your first problem is that you still do not know what they mean. If you start defending yourself now, you may end up arguing against five different things that were never even claimed.</p><div class="example-line">“Can you help me understand which deadlines you’re referring to?”</div><p>The vague accusation now has to become specific. Until it does, you do not have to accept the framing or rush into a defense.</p>`,skillsSummary:"Clean questions, listening, and resisting the urge to defend too early.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Ask a clean question</div><div class="skill-copy">The question should help you get information, not smuggle in an accusation. “Can you help me understand which deadlines you mean?” gets useful information. “Why are you accusing me of missing deadlines when you know that isn’t true?” is already a fight.</div></div>
+  <div class="skill-item"><div class="skill-name">Listen for specifics</div><div class="skill-copy">The goal is to hear dates, examples, expectations, or criteria. Vague language keeps you reacting to a cloud. Specific information gives you something you can test.</div></div>
+  <div class="skill-item"><div class="skill-name">Delay the defense</div><div class="skill-copy">A common mistake is explaining before the claim is clear. Inquiry works best when you can tolerate not defending yourself for a few seconds and let the other person show you what they are actually saying.</div></div>
+ </div>`,watch:"If they answer vaguely or dodge the question, move toward clarification."},
+ {n:2,name:"Clarification",tag:"Force precision.",group:"info",useMain:"The issue is still too vague to test.",useSub:"You need dates, examples, criteria, or a specific claim.",doesMain:"Narrows the claim.",doesSub:"It turns a broad accusation into something concrete.",protectMain:"Accuracy.",protectSub:"Specific claims can be checked against facts.",copy:`<p>Clarification tightens the issue. Inquiry gets the conversation open. Clarification forces precision.</p><p>This is useful when someone uses broad language like “always,” “never,” “people have concerns,” “there have been complaints,” or “this keeps happening.” Those phrases can sound serious while giving you almost nothing concrete to respond to.</p><div class="example-line">“Are you referring to the March 12 deliverable, the April 3 deliverable, or something else?”</div><p>Now the problem has edges. Once the specific event, date, behavior, or standard is identified, you can evaluate whether the claim is accurate.</p>`,skillsSummary:"Precision, fact-versus-assumption thinking, and narrowing broad language.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Separate facts from interpretation</div><div class="skill-copy">Clarification helps separate what can be verified from labels such as “unprofessional,” “difficult,” or “not a team player.” Ask what behavior, event, or standard the label refers to.</div></div>
+  <div class="skill-item"><div class="skill-name">Narrow the scope</div><div class="skill-copy">If someone says “this keeps happening,” narrow it. Which examples? Which dates? Which expectation? The smaller the claim becomes, the easier it is to evaluate accurately.</div></div>
+  <div class="skill-item"><div class="skill-name">Do not fill in the blanks for them</div><div class="skill-copy">When someone is vague, it is easy to start guessing what they mean and defending against possibilities. Let the person making the claim define the claim.</div></div>
+ </div>`,watch:"Once the claim becomes specific, decide whether it needs correction."},
+ {n:3,name:"Correction",tag:"Fix the record.",group:"info",useMain:"A specific claim is inaccurate.",useSub:"The facts are clear enough to verify.",doesMain:"Replaces the version.",doesSub:"You put accurate information into the conversation or record.",protectMain:"Record + reputation.",protectSub:"Incorrect claims are less likely to stand uncontested.",copy:`<p>Correction is where you stop gathering information and put accurate information into the conversation. You are not defending your entire character. You are correcting the specific claim that can be tested.</p><p>If your boss says you missed the March 12 deadline, and you know the work was submitted on March 11, you do not need a five-paragraph rebuttal.</p><div class="example-line">“The March 12 deliverable was submitted on March 11.”</div><p>The strength comes from being specific, factual, and brief. Bring the receipt when you have one: the email, document history, message, or date.</p>`,skillsSummary:"Brevity, evidence, neutral language, and a clean written record.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Use factual language</div><div class="skill-copy">Correct the testable claim. Avoid adding motives, character judgments, or five additional grievances. The cleaner the correction, the harder it is to sidestep.</div></div>
+  <div class="skill-item"><div class="skill-name">Use documentation when it helps</div><div class="skill-copy">If there is an email, timestamp, document history, schedule, or other record that establishes the fact, use it. Evidence keeps the correction anchored to something outside the argument.</div></div>
+  <div class="skill-item"><div class="skill-name">Know when to stop</div><div class="skill-copy">Over-explaining can weaken a correction. Once the inaccurate claim has been corrected clearly, more words may create new openings for the conversation to drift.</div></div>
+ </div>`,watch:"If the same claim continues after correction, you may be looking at a pattern rather than a misunderstanding."},
+ {n:4,name:"Indirect Boundary",tag:"Set structure.",group:"boundary",useMain:"You need a limit without a full confrontation.",useSub:"A process or condition may solve the problem.",doesMain:"Defines the lane.",doesSub:"You establish structure while keeping the response low-key.",protectMain:"Time + process.",protectSub:"The request stops being open-ended.",copy:`<p>An indirect boundary is useful when you need to limit what happens next without turning the interaction into a confrontation.</p><p>You create structure. You narrow the request. You define the process. You put parameters around access, time, communication, or responsibility.</p><div class="example-line">“If you’d like me to copy you on emails, can we define which projects and for how long?”</div><p>The request is no longer unlimited. If the structure adequately protects you, you can stop here.</p>`,skillsSummary:"Scope-setting, prioritization, and translating a limit into a workable process.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Turn the limit into structure</div><div class="skill-copy">An indirect boundary often works through process: which projects, which hours, which requests, which channel, which priority. Structure makes an open-ended demand smaller and more manageable.</div></div>
+  <div class="skill-item"><div class="skill-name">Ask about tradeoffs</div><div class="skill-copy">When workload is the issue, a useful boundary skill is forcing prioritization. If something new is added, what changes? This prevents “yes” from silently meaning unlimited capacity.</div></div>
+  <div class="skill-item"><div class="skill-name">Watch your conflict style</div><div class="skill-copy">People who avoid conflict can make an indirect boundary so subtle that nobody recognizes it as a boundary. The language can stay professional without becoming invisible.</div></div>
+ </div>`,watch:"If the limit stays ambiguous or is ignored, make the boundary explicit."},
+ {n:5,name:"Explicit Boundary",tag:"State the limit.",group:"boundary",useMain:"The boundary needs to be unmistakable.",useSub:"An indirect limit is no longer enough.",doesMain:"States the condition.",doesSub:"You clearly define what you will and will not participate in.",protectMain:"Access + expectations.",protectSub:"The other person has less room to reinterpret the limit.",copy:`<p>An explicit boundary removes the ambiguity. You are no longer hinting at a limit. You are stating the condition directly.</p><p>The goal is not to sound intimidating. The goal is to make the boundary clear enough that both people understand the limit.</p><div class="example-line">“I’m willing to follow a new communication process, but expectations and performance concerns need to be stated specifically and accurately.”</div><p>A useful boundary tells the other person what you will do, what you need, or what condition has to be met.</p>`,skillsSummary:"Assertiveness, broken-record technique, and tolerating the discomfort after a clear no.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">State the limit cleanly</div><div class="skill-copy">A clear boundary identifies what you will do, what you will not do, or what condition needs to be met. It does not need a long defense to become legitimate.</div></div>
+  <div class="skill-item"><div class="skill-name">Use the broken-record technique</div><div class="skill-copy">When pressure continues, repeating the same clear boundary can be more effective than inventing a new explanation every time. New explanations create new material to argue with.</div></div>
+  <div class="skill-item"><div class="skill-name">Tolerate the reaction</div><div class="skill-copy">A boundary can trigger guilt, irritation, criticism, pressure, or withdrawal. The skill is staying with the boundary long enough to find out whether the other person will respect it.</div></div>
+ </div>`,watch:"If the boundary is tested, their response tells you whether the problem is becoming a larger pattern."},
+ {n:6,name:"Direct Conversation",tag:"Name the pattern.",group:"direct",useMain:"The issue is continuing or becoming consequential.",useSub:"You need to address the pattern itself.",doesMain:"Brings the pattern into the open.",doesSub:"You stop treating repeated behavior as isolated incidents.",protectMain:"Working relationship.",protectSub:"You create a direct opportunity to address what is driving the pattern.",copy:`<p>A direct conversation becomes useful when the issue is no longer one isolated statement or request. Something is repeating, spreading, or starting to affect the working relationship.</p><p>This is where you name the pattern and bring it into the open.</p><div class="example-line">“I’m concerned there’s a growing narrative about missed deadlines that doesn’t match the record, and I want to understand what’s driving that.”</div><p>You are no longer correcting one deadline. You are questioning the larger pattern being built around your performance.</p>`,skillsSummary:"Conflict style, conversation structure, assertiveness, and staying on one issue.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Know your conflict style</div><div class="skill-copy">If you tend to avoid conflict, you may delay the conversation or soften the point until it disappears. If you tend to become highly competitive, you may come in harder than the situation requires. Knowing your default helps you compensate for it.</div></div>
+  <div class="skill-item"><div class="skill-name">Use a conversation framework</div><div class="skill-copy">A structure such as DESC can keep the conversation from turning into a ramble. Describe the specific behavior, express the impact or concern, specify what needs to change, and clarify the consequence or outcome.</div></div>
+  <div class="skill-item"><div class="skill-name">Keep the scope narrow</div><div class="skill-copy">Direct conversations become harder when every past frustration enters at once. Name the pattern you are addressing, use a few representative examples, and stay with the issue that needs resolution.</div></div>
+ </div>
+ <div class="skill-framework"><strong>DESC in plain language</strong>What happened → why it creates a problem → what needs to change → what happens or improves if it does.</div>`,watch:"If the explanation does not hold up, or the position becomes explicit, a direct challenge may fit."},
+ {n:7,name:"Direct Challenge",tag:"Contest the position.",group:"direct",useMain:"You need to explicitly disagree.",useSub:"The position is clear and you are not accepting it.",doesMain:"Draws the disagreement.",doesSub:"You make your position unmistakable without adding unnecessary heat.",protectMain:"Position + credibility.",protectSub:"Silence is less likely to be read as agreement.",copy:`<p>A direct challenge is where you explicitly contest the position.</p><p>This is useful when the facts are already clear and you need the record to show that you do not agree with the characterization, decision, or claim.</p><div class="example-line">“I disagree with the characterization that I have a pattern of missing deadlines. The documentation does not support that.”</div><p>The response is direct, but still anchored to something concrete.</p>`,skillsSummary:"Concise disagreement, evidence, emotional control, and political awareness.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Disagree without over-defending</div><div class="skill-copy">The purpose is to establish your position, not to prove every positive thing about yourself. A concise disagreement is easier to hear and easier to preserve in the record.</div></div>
+  <div class="skill-item"><div class="skill-name">Anchor the challenge to evidence</div><div class="skill-copy">A direct challenge is stronger when it points to documentation, criteria, policy, prior decisions, or specific facts rather than becoming a contest of personalities.</div></div>
+  <div class="skill-item"><div class="skill-name">Read the political environment</div><div class="skill-copy">Who is present, who has authority, how much credibility you have, and how disagreement is treated in that workplace all affect how direct the challenge should be and where it should happen.</div></div>
+ </div>`,watch:"If the stakes or conduct now require greater authority, escalation may be the next level."},
+ {n:8,name:"Escalation",tag:"Bring authority.",group:"escalate",useMain:"The issue exceeds what you can resolve directly.",useSub:"Authority, process, or formal intervention is now needed.",doesMain:"Changes who is involved.",doesSub:"The problem moves to a level with greater organizational authority.",protectMain:"Formal position.",protectSub:"Documentation and prior attempts give the escalation context.",copy:`<p>Escalation is the far end of the spectrum. You bring the issue to someone with greater authority or into a formal organizational process because the problem is no longer being resolved at the current level.</p><p>That might mean a manager above the person involved, HR, an ethics channel, a grievance process, a union representative, or another formal mechanism available in the workplace.</p><p>The strength of escalation comes from the record you bring: dates, messages, specific claims, corrections, boundaries, decisions, and supporting documentation.</p><div class="example-line">Bring the record, not a character argument.</div><p>Escalation is usually stronger when the person receiving it can see the path that led you there. If clarification, correction, a boundary, or a direct conversation were appropriate and safe, those earlier steps create context. They show what happened, what you tried, how the other person responded, and why the problem now requires more authority.</p><p>If you skip those levels without a reason, the escalation can look premature. The focus may shift to why you escalated so quickly instead of the issue you were trying to solve. That does not mean you must complete every stage first. It means you should be able to explain why this level is the right one now.</p><p>Some situations justify immediate escalation. Serious safety concerns, threats, harassment, discrimination, violence, illegal conduct, or other high-risk situations may call for formal intervention without working through lower stages.</p><p>Make it easy for someone outside the immediate conflict to understand what happened, what you did to address it, what is continuing, and what you need resolved.</p>`,skillsSummary:"Documentation, issue framing, executive communication, influence, and a clear ask.",skills:`
+ <div class="skill-list">
+  <div class="skill-item"><div class="skill-name">Build the record</div><div class="skill-copy">Escalation needs more than a feeling that something is wrong. Organize dates, events, messages, prior corrections, boundaries, decisions, and the response you received. The person receiving the escalation should be able to follow the pattern without reconstructing it for you.</div></div>
+  <div class="skill-item"><div class="skill-name">Frame the issue</div><div class="skill-copy">Do not unload every painful detail in the order it happened. Explain what the core problem is, what pattern supports it, why it affects the work, and why intervention is needed now.</div></div>
+  <div class="skill-item"><div class="skill-name">Communicate upward</div><div class="skill-copy">Senior leaders usually need a concise version they can act on. Lead with the issue, the evidence, the organizational impact, what has already been attempted, and the decision or support you are asking for.</div></div>
+  <div class="skill-item"><div class="skill-name">Use influence, not volume</div><div class="skill-copy">A long emotional download can bury the strongest parts of the case. Influence comes from relevance, credibility, evidence, and making the requested action clear.</div></div>
+ </div>
+ <div class="skill-framework"><strong>A clean escalation structure</strong>Here is the issue → here is the pattern and evidence → here is what has already been attempted → here is the impact → here is what is needed now.</div>`,watch:"Keep the issue factual, specific, and tied to the outcome you need."}
 ];
 
-const scenes = [
- {id:'title',x:2100,y:1320,w:820,h:500,title:'Pushing Back Professionally',k:'Opening',html:()=>`
-  <div class="eyebrow">Fearless Workplace · Live Workshop</div><h1>Pushing Back <span class="accentText">Professionally</span></h1>
-  <p class="bigline">You do not need one perfect response. You need more options.</p>
-  <p>Learn how to choose the lowest level of pushback that still protects you.</p>
-  <div class="chips"><span class="chip">60-minute workshop</span><span class="chip">8-stage spectrum</span><span class="chip">decision practice</span></div>`,
-  notes:`Open quickly. Do not spend several minutes on biography.\n\nSay: “When most people hear pushback, they picture confrontation. That is the first problem we are going to fix.”\n\nMove directly into the scenario.`},
- {id:'scenario',x:600,y:760,w:860,h:560,title:'What would you do?',k:'The problem',html:()=>`
-  <div class="eyebrow">Start with the problem</div><h2>What would <span class="burgText">you</span> do?</h2>
-  <div class="quote">Your boss emails you, copies their manager, and says that because of your “pattern of missing deadlines,” they now need to be copied on all your work communication.</div>
-  <p>You know the claim is inaccurate.</p><p class="bigline">What is your move?</p>`,
-  notes:`Ask the room before teaching anything. Let people answer.\n\nYou may hear: ignore it, explain, reply-all, correct the record, ask for a meeting, go to HR.\n\nThen say: “Everything you just named can be a form of pushback. But those moves are not equivalent.”`},
- {id:'collapse',x:700,y:1500,w:760,h:430,title:'The false binary',k:'The problem',html:()=>`
-  <div class="eyebrow">The false binary</div><h2>People collapse pushback into one thing:</h2><p class="bigline burgText">CONFRONTATION</p>
-  <p>So they either stay quiet because confrontation feels too risky, or they wait until the situation is so bad that confrontation is the only move they can see.</p>`,
-  notes:`This is the tension. Most people think they have two choices: tolerate it or confront it.\n\nPromise: “There are several places to respond before you ever get to confrontation.”`},
- {id:'rule',x:1450,y:300,w:820,h:470,title:'The decision rule',k:'Decision rule',html:()=>`
-  <div class="eyebrow">The rule that governs the framework</div><h2>Use the <span class="accentText">lowest level</span> of pushback that adequately protects you.</h2>
-  <div class="grid3"><div class="mini"><strong>Not the softest</strong><span>Too little can leave you exposed.</span></div><div class="mini"><strong>Not the hardest</strong><span>More force can create unnecessary risk.</span></div><div class="mini"><strong>The lowest effective</strong><span>Enough to protect what needs protecting.</span></div></div>`,
-  notes:`This is the central rule.\n\nSay: “The goal is not to prove how assertive you can be. The goal is to protect the thing that needs protecting with the least unnecessary exposure.”\n\nAlso clarify: the spectrum is not a ladder everyone must climb from 1 to 8.`},
- {id:'threeq',x:2280,y:220,w:830,h:500,title:'Three questions',k:'Decision rule',html:()=>`
-  <div class="eyebrow">Before you choose a level</div><h2>Ask <span class="azureText">three questions.</span></h2>
-  <div class="grid3"><div class="mini"><strong>1. What needs protecting?</strong><span>Record, workload, reputation, authority, time, boundary, ownership.</span></div><div class="mini"><strong>2. What happens if I do nothing?</strong><span>Does this disappear, or become the accepted version?</span></div><div class="mini"><strong>3. What is the risk of responding?</strong><span>Power, culture, pattern, retaliation risk, political capital.</span></div></div>`,
-  notes:`The diagnosis comes before the sentence.\n\nPush participants to distinguish annoyance from consequence. A rude comment may not need the same response as a false performance claim copied upward.`},
- {id:'pause',x:3150,y:300,w:700,h:420,title:'Regulate before deciding',k:'Decision rule',html:()=>`
-  <div class="eyebrow">A 90-second skill, not an 8-minute lecture</div><h2>Regulate before you <span class="accentText">decide.</span></h2>
-  <p class="bigline">Pause → Gather information → Choose deliberately</p>
-  <div class="quote">“I want to make sure I understand this before I respond.”</div>`,
-  notes:`Keep this short. A challenge to your work can trigger fight, flight, freeze, or fawn. Your goal is simply to get your brain back online enough to make the decision.\n\nYou do not need the perfect response in real time. Buying time can be strategic.`},
- {id:'spectrum',x:2000,y:900,w:1150,h:660,title:'The Pushback Spectrum',k:'Master map',html:()=>spectrumHtml(),
-  notes:`This is the signature visual.\n\nTeach the clusters first, not eight definitions.\n\nStages 1–3: information or record correction.\nStages 4–5: limits.\nStages 6–8: direct challenge or greater authority.\n\nSay: “The job of the response changes as you move across the spectrum.”`},
- {id:'infoGroup',x:3280,y:650,w:980,h:610,title:'Information',k:'Stages 1–3',html:()=>groupHtml('INFORMATION','You are gathering, narrowing, or correcting.',STAGES.slice(0,3),'teal'),notes:`Walk the boss scenario through Inquiry → Clarification → Correction.\n\nImportant aha: no confrontation, no accusation, no escalation — and you have already pushed back three different ways.`},
- ...STAGES.slice(0,3).map((s,i)=>stageScene(s, 3560+i*35, 80+i*650, i)),
- {id:'already',x:4300,y:830,w:620,h:430,title:'Already pushed back',k:'Stages 1–3',html:()=>`
-  <div class="eyebrow">Pause here</div><h2>You have already pushed back <span class="accentText">three times.</span></h2>
-  <p class="bigline">Asked → Narrowed → Corrected</p><div class="chips"><span class="chip">No accusation</span><span class="chip">No confrontation</span><span class="chip">No escalation</span></div>`,
-  notes:`This is the psychological relief point. People often stay silent because they think responding means starting a fight. The first three stages show otherwise.`},
- {id:'boundaryGroup',x:3650,y:1420,w:1040,h:580,title:'Boundaries',k:'Stages 4–5',html:()=>groupHtml('BOUNDARIES','You know enough. Now you are setting a limit.',STAGES.slice(3,5),'azure'),notes:`Teach the difference between a process boundary and an explicit boundary. Ask: “Does the indirect version adequately protect you?” If yes, stop there.`},
- ...STAGES.slice(3,5).map((s,i)=>stageScene(s, 4030+i*90, 1420+i*640, i+3)),
- {id:'confrontGroup',x:3200,y:2300,w:1100,h:610,title:'Confrontation + Escalation',k:'Stages 6–8',html:()=>groupHtml('CONFRONTATION + ESCALATION','The pattern, stakes, or consequences now require a stronger move.',STAGES.slice(5,8),'burg'),notes:`These are the moves people usually picture when they hear “pushback.” Stress that a Direct Conversation and Direct Challenge can happen in the same sitting.`},
- ...STAGES.slice(5,8).map((s,i)=>stageScene(s, 3720-i*130, 2450+i*130, i+5)),
- {id:'calibration',x:2050,y:2400,w:1040,h:620,title:'What changes the calculation',k:'Calibration',html:()=>`
-  <div class="eyebrow">Same behavior · different context · different move</div><h2>The behavior alone does <span class="burgText">not</span> determine the response.</h2>
-  <div class="grid3"><div class="mini"><strong>Power</strong><span>Peer, manager, senior leader, client.</span></div><div class="mini"><strong>Pattern</strong><span>One incident or repeated behavior?</span></div><div class="mini"><strong>Stakes</strong><span>Annoyance or formal record?</span></div><div class="mini"><strong>Audience</strong><span>Private, team-wide, sent upward?</span></div><div class="mini"><strong>Channel</strong><span>Spoken, email, Slack, review?</span></div><div class="mini"><strong>Risk</strong><span>Backlash, retaliation, political capital.</span></div></div>`,
-  notes:`This is the missing decision layer.\n\nUse the example: a peer makes one inaccurate statement privately versus a manager repeatedly putting inaccurate performance claims in writing and copying leadership. Same broad behavior. Different consequence and power.`},
- {id:'risk',x:1400,y:2450,w:600,h:480,title:'Risk is uneven',k:'Calibration',html:()=>`
-  <div class="eyebrow">Calibration</div><h2>Risk is not distributed <span class="burgText">evenly.</span></h2><p>The same pushback can carry different costs depending on power, identity, culture, and context.</p><p class="bigline">The lesson is not “be less assertive.” It is: calibrate the move.</p>`,
-  notes:`Keep this to 1–2 minutes. Mention backlash research as evidence for the larger principle, not as a separate gender lecture. Lower-power people may choose different framing, stronger documentation, or a different channel.`},
- {id:'lab',x:750,y:2300,w:900,h:680,title:'Pushback Lab',k:'Practice',html:()=>`
-  <div class="eyebrow">Practice the diagnosis</div><h2>Choose the move <span class="azureText">before</span> you write the sentence.</h2>
-  <div class="grid2"><div class="mini"><strong>1</strong><span>What needs protecting?</span></div><div class="mini"><strong>2</strong><span>What happens if you do nothing?</span></div><div class="mini"><strong>3</strong><span>What risk factors matter?</span></div><div class="mini"><strong>4</strong><span>Which stage fits right now?</span></div><div class="mini"><strong>5</strong><span>Why not one stage lower?</span></div><div class="mini"><strong>6</strong><span>Why not one stage higher?</span></div></div>
-  <div class="quote">Then write one line of pushback.</div>`,
-  notes:`Give pairs or groups about 10 minutes. The skill is defending the choice of stage, not producing a clever sentence.\n\nChallenge them: “What makes that Stage 5 instead of Stage 3?” “What fact would move your answer up or down?”`},
- {id:'debrief',x:500,y:1650,w:710,h:520,title:'Debrief',k:'Practice',html:()=>`
-  <div class="eyebrow">Debrief</div><h2>What would change <span class="accentText">your answer?</span></h2><p class="bigline">There may not be one universally correct stage.</p><p>Ask what new fact would move the response up or down the spectrum.</p>`,
-  notes:`Invite 2–3 examples. For each: ask the stage, ask why, then ask what new information would change the answer. This teaches that the framework is a decision tool rather than eight canned scripts.`},
- {id:'response',x:400,y:1050,w:720,h:560,title:'When it doesn’t work',k:'Dynamic spectrum',html:()=>`
-  <div class="eyebrow">The first move is not always the last move</div><h2>Their response to your pushback is <span class="burgText">new information.</span></h2>
-  <div class="grid2"><div class="mini"><strong>Ask → they evade</strong><span>Move toward precision.</span></div><div class="mini"><strong>Correct → they repeat it</strong><span>The problem is becoming a pattern.</span></div><div class="mini"><strong>Boundary → they test it</strong><span>Hold it or strengthen it.</span></div><div class="mini"><strong>Pattern → it continues</strong><span>Challenge or escalation may now fit.</span></div></div>`,
-  notes:`This is critical. The spectrum is dynamic. Do not keep repeating the same move forever just because it was appropriate the first time. Re-run the decision filter.`},
- {id:'plan',x:1220,y:1120,w:800,h:620,title:'Build your Pushback Plan',k:'Personal plan',html:()=>planHtml(),notes:`Give 2–3 quiet minutes. The most important field is “If that does not work, what is my next move?” People prepare for one conversation and then get caught off guard by resistance.`},
- {id:'close',x:2100,y:1650,w:860,h:520,title:'Close',k:'Close',html:()=>`
-  <div class="eyebrow">Bring it back to the center</div><h2>You do not need to become more confrontational.</h2><p class="bigline">You need more <span class="accentText">options.</span></p><p>Recognize what the situation requires. Choose the lowest level of pushback that still protects you.</p>
-  <div class="quote">Pushback gets easier when you stop treating it as one giant confrontation and start treating it as a strategic choice.</div>`,
-  notes:`Close the loop from the opening scenario.\n\nSay: “More options reduce the chance that you stay silent too long, overreact too early, or escalate before you need to.”`}
-];
+let activeQ=null, activeStage=null, activeAcc=null;
+const grid=document.getElementById('spectrumGrid');
+stages.forEach(s=>{
+  const b=document.createElement('button');
+  b.className=`stage ${s.group}`; b.dataset.stage=s.n;
+  b.innerHTML=`<div class="stage-num">0${s.n}</div><div class="stage-name">${s.name}</div><div class="stage-tag">${s.tag}</div><div class="stage-open-hint">+</div>`;
+  b.onclick=()=>toggleStage(s); grid.appendChild(b);
+});
 
-function stageScene(s,x,y,idx){return {id:'stage'+s.n,x,y,w:720,h:610,title:s.n+' '+s.name,k:'Stage '+s.n,html:()=>stageHtml(s),notes:`Stage ${s.n}: ${s.name}.\n\n${s.use}\n\nWhat it protects: ${s.protect}\n\nBoss example: ${s.boss}\n\nWatch for: ${s.watch}\n\nTakeaway: ${s.take}`}}
+function renderQuestionAccordion(items){
+  const container=document.getElementById('questionAccordion');
+  container.innerHTML = items.map((item, idx)=>`
+    <div class="acc-item ${item.tone} ${activeAcc===idx ? 'open' : ''}" data-idx="${idx}">
+      <button class="acc-btn" onclick="toggleAcc(${idx})">
+        <div class="acc-icon">${item.icon}</div>
+        <div class="acc-text">
+          <div class="acc-title">${item.title}</div>
+          <div class="acc-summary">${item.summary}</div>
+        </div>
+        <div class="acc-toggle">+</div>
+      </button>
+      <div class="acc-panel">
+        <div class="acc-inner">
+          <div class="acc-copy"><p>${item.body}</p></div>
+          ${item.example ? `<div class="acc-example"><strong>${item.exampleTitle || 'Example'}</strong><span>${item.example}</span></div>` : ''}
+        </div>
+      </div>
+    </div>`).join('');
+}
 
-function spectrumHtml(){return `<div class="eyebrow">The master map</div><h2>Pushback is a <span class="accentText">spectrum.</span></h2><p>From a quiet question to formal escalation.</p><div class="spectrumWrap"><div class="spectrum">${STAGES.map(s=>`<div class="stageDot"><small>${s.n}</small><div class="dot"></div><b>${s.name}</b></div>`).join('')}</div><div class="clusterLabels"><div class="cluster info">Information</div><div class="cluster bounds">Boundaries</div><div class="cluster confront">Confrontation + Escalation</div></div></div><p class="bigline">The job of the response changes as you move across the spectrum.</p>`}
-function groupHtml(label,subtitle,arr,color){return `<div class="eyebrow">${label}</div><h2>${subtitle}</h2><div class="grid3">${arr.map(s=>`<div class="mini"><strong>${s.n} · ${s.name}</strong><span>${s.def}</span></div>`).join('')}</div>`}
-function stageHtml(s){const cls=s.c==='burg'?'burg':s.c==='azure'?'azure':'';return `<div class="stageHeader"><div class="numBadge ${cls}">${s.n}</div><div><div class="eyebrow">Stage ${s.n} of 08</div><h3>${s.headline}</h3></div></div><div class="quote">${s.def}</div><div class="stageMeta"><div><div class="label">Use this when</div><div class="value">${s.use}</div></div><div><div class="label">What you are protecting</div><div class="value">${s.protect}</div></div></div><div class="label" style="margin-top:16px">With a boss</div><div class="scriptLine">${s.boss}</div><div class="label" style="margin-top:12px">With a peer</div><div class="scriptLine">${s.peer}</div><div class="stageFooter"><b>Watch for:</b> ${s.watch}<br><b>Takeaway:</b> ${s.take}</div>`}
-function planHtml(){return `<div class="eyebrow">Build your plan</div><h2>Apply the framework to one <span class="accentText">real situation.</span></h2><div class="planGrid"><div class="field"><label>What happened?</label><textarea id="p1"></textarea></div><div class="field"><label>What needs protecting?</label><textarea id="p2"></textarea></div><div class="field"><label>My first move</label><select id="p3">${STAGES.map(s=>`<option>${s.n} · ${s.name}</option>`).join('')}</select></div><div class="field"><label>What I will say</label><textarea id="p4"></textarea></div><div class="field"><label>If that does not work, my next move is</label><select id="p5">${STAGES.map(s=>`<option>${s.n} · ${s.name}</option>`).join('')}</select></div><div class="field"><label>What do I need to document?</label><textarea id="p6"></textarea></div></div>`}
+function toggleTouchQA(btn){
+  const item = btn.closest('.touch-qa');
+  const group = item.dataset.group;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.touch-qa[data-group="'+group+'"]').forEach(el=>el.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+function toggleTouchpoint(id){
+  document.getElementById(id).classList.toggle('open');
+}
+function toggleIntro(){
+  document.getElementById('introCard').classList.toggle('open');
+}
+function toggleCalibration(){
+  document.getElementById('calibrationCard').classList.toggle('open');
+}
+function toggleQuestion(key){
+  if(activeQ===key){ closeQuestion(); return; }
+  activeQ=key;
+  activeAcc=0;
+  document.querySelectorAll('.q').forEach(el=>el.classList.remove('active'));
+  document.querySelector(`.q[data-q="${key}"]`).classList.add('active');
+  const q=questions[key];
+  document.getElementById('questionKicker').textContent=q.kicker;
+  document.getElementById('questionTitle').textContent=q.title;
+  document.getElementById('questionIntro').innerHTML=q.intro || '';
+  document.getElementById('questionOutro').innerHTML=q.outro || '';
+  renderQuestionAccordion(q.items || []);
+  const r=document.getElementById('questionReveal'); r.classList.add('open');
+  setTimeout(()=>r.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+}
+function toggleAcc(idx){
+  activeAcc = activeAcc===idx ? null : idx;
+  if(activeQ) renderQuestionAccordion(questions[activeQ].items || []);
+}
+function closeQuestion(){
+  activeQ=null; activeAcc=null;
+  document.querySelectorAll('.q').forEach(el=>el.classList.remove('active'));
+  document.getElementById('questionReveal').classList.remove('open');
+}
 
-const world=document.getElementById('world');
-scenes.forEach((s,i)=>{const el=document.createElement('section');el.className='scene '+(s.id==='title'?'dark':'')+(s.id==='risk'||s.id==='response'?' accent-burg':'')+(s.id==='rule'||s.id==='infoGroup'?' accent-teal':'')+(s.id==='lab'||s.id==='calibration'?' accent-azure':'');el.id=s.id;el.style.left=s.x+'px';el.style.top=s.y+'px';el.style.width=s.w+'px';el.style.minHeight=s.h+'px';el.innerHTML=s.html()+`<button class="jump ${i===scenes.length-1?'teal':''}" data-jump="${i<scenes.length-1?i+1:0}">${i<scenes.length-1?'Continue →':'Back to start'}</button>`;world.appendChild(el)});
-
-document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>goTo(+b.dataset.jump)));
-
-let current=0; let notesOpen=false;
-const viewport=document.querySelector('.viewport');
-function goTo(i){current=Math.max(0,Math.min(scenes.length-1,i));const s=scenes[current];const vw=viewport.clientWidth,vh=viewport.clientHeight;const pad=90;const scale=Math.min((vw-pad*2)/s.w,(vh-pad*2)/s.h,1.18);const tx=vw/2-(s.x+s.w/2)*scale;const ty=vh/2-(s.y+s.h/2)*scale;world.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`;document.getElementById('counter').textContent=`${current+1} / ${scenes.length}`;document.getElementById('prevBtn').disabled=current===0;document.getElementById('nextBtn').disabled=current===scenes.length-1;document.getElementById('notesTitle').textContent=s.title;document.getElementById('notesText').textContent=s.notes;}
-function showWholeMap(){const vw=viewport.clientWidth,vh=viewport.clientHeight;const scale=Math.min(vw/5000,vh/3200)*.92;world.style.transform=`translate(${(vw-5000*scale)/2}px,${(vh-3200*scale)/2}px) scale(${scale})`;}
-
-document.getElementById('prevBtn').onclick=()=>goTo(current-1);document.getElementById('nextBtn').onclick=()=>goTo(current+1);
-document.getElementById('notesBtn').onclick=()=>toggleNotes();
-function toggleNotes(){notesOpen=!notesOpen;document.getElementById('notesPanel').classList.toggle('open',notesOpen)}
-
-document.getElementById('mapBtn').onclick=()=>openMap();document.getElementById('closeMap').onclick=()=>document.getElementById('mapOverlay').classList.remove('open');
-function openMap(){const grid=document.getElementById('mapGrid');grid.innerHTML=scenes.map((s,i)=>`<button class="mapItem" data-map-jump="${i}"><span>${String(i+1).padStart(2,'0')} · ${s.k}</span><b>${s.title}</b></button>`).join('');grid.querySelectorAll('[data-map-jump]').forEach(b=>b.onclick=()=>{document.getElementById('mapOverlay').classList.remove('open');goTo(+b.dataset.mapJump)});document.getElementById('mapOverlay').classList.add('open')}
-
-document.getElementById('fullscreenBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}};
-window.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();goTo(current+1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goTo(current-1)}if(e.key.toLowerCase()==='s'){toggleNotes()}if(e.key.toLowerCase()==='m'){openMap()}if(e.key==='Escape'){document.getElementById('mapOverlay').classList.remove('open')}});
-window.addEventListener('resize',()=>goTo(current));
-
-// Persist worksheet locally in browser
-['p1','p2','p3','p4','p5','p6'].forEach(id=>{document.addEventListener('input',e=>{if(e.target.id===id)localStorage.setItem('fw-'+id,e.target.value)})});
-setTimeout(()=>{['p1','p2','p3','p4','p5','p6'].forEach(id=>{const el=document.getElementById(id);if(el&&localStorage.getItem('fw-'+id))el.value=localStorage.getItem('fw-'+id)})},500);
-
-goTo(0);
+function toggleStageSkills(){
+  document.getElementById('stageSkills').classList.toggle('open');
+}
+function toggleStage(s){
+  if(activeStage===s.n){closeStage();return}
+  activeStage=s.n; document.querySelectorAll('.stage').forEach(el=>el.classList.remove('active'));
+  document.querySelector(`.stage[data-stage="${s.n}"]`).classList.add('active');
+  document.getElementById('expKicker').textContent=`Stage 0${s.n}`;
+  document.getElementById('expTitle').textContent=s.name;
+  document.getElementById('expHead').className=`exp-head ${s.group}`;
+  document.getElementById('useMain').textContent=s.useMain; document.getElementById('useSub').textContent=s.useSub;
+  document.getElementById('doesMain').textContent=s.doesMain; document.getElementById('doesSub').textContent=s.doesSub;
+  document.getElementById('protectMain').textContent=s.protectMain; document.getElementById('protectSub').textContent=s.protectSub;
+  document.getElementById('stageCopy').innerHTML=s.copy;
+  document.getElementById('stageSkillsSummary').textContent=s.skillsSummary || '';
+  document.getElementById('stageSkillsContent').innerHTML=s.skills || '';
+  document.getElementById('stageSkills').classList.remove('open');
+  document.getElementById('watchText').textContent=s.watch;
+  const r=document.getElementById('expWrap'); r.classList.add('open');
+  setTimeout(()=>r.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+}
+function closeStage(){activeStage=null;document.querySelectorAll('.stage').forEach(el=>el.classList.remove('active'));document.getElementById('stageSkills').classList.remove('open');document.getElementById('expWrap').classList.remove('open')}
+function collapseAll(){closeQuestion();closeStage();document.getElementById('introCard').classList.remove('open');document.getElementById('calibrationCard').classList.remove('open')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')collapseAll()});
 </script>
 </body>
 </html>
